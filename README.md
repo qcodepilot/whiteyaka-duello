@@ -6,6 +6,7 @@ istem, modeller koşulmadan önce yazılan ölçütler, iki modelin çıktısı 
 | No | Tarih | Görev | Sonuç | Klasör |
 |---|---|---|---|---|
 | 1 | 9 Kasım 2026 | Tek istemle tahsilat panosu (GPT-5.6 Terra – Claude Opus 5.5) | Berabere (4/4 – 4/4) | [2026-11-09_tahsilat-panosu](2026-11-09_tahsilat-panosu/) |
+| 2 | 10 Kasım 2026 | Tek istemle kargo toplama mini oyunu (GPT-6.1 Sol – Claude Opus 5.5) | Berabere (100 – 100) | [2026-11-10_kargo-oyunu](2026-11-10_kargo-oyunu/) |
 
 ## Bir klasörde neler var
 
@@ -13,6 +14,7 @@ istem, modeller koşulmadan önce yazılan ölçütler, iki modelin çıktısı 
 - `RUBRIC.md`: ölçütler, modeller koşulmadan önce yazıldı
 - `gpt.html`, `claude.html`: modellerin ürettiği dosyalar, düzeltilmeden
 - `SCORES.md`, `measure.json`: puanlar ve otomatik ölçümün ham sonucu
+- DÜELLO #2'den itibaren: girdi dosyası (`warehouse.json`), modellere verilmeyen test cevapları (`duel-warehouse-tests.json`, `duel-warehouse-oracle.json`) ve ölçüm betiği (`score.py`, Playwright)
 
 Çıktıları kendin de deneyebilirsin: `gpt.html` ya da `claude.html` dosyasını indirip tarayıcıda aç.
 

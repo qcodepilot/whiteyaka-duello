@@ -1,0 +1,722 @@
+{
+ "gpt": {
+  "side": "gpt",
+  "requests": [],
+  "console": [],
+  "tests": {
+   "W01": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W02": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W03": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W04": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W05": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 1,
+     "picked": [],
+     "steps": 1,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W06": {
+    "ok": true,
+    "got": {
+     "x": 2,
+     "y": 1,
+     "picked": [
+      "A"
+     ],
+     "steps": 7,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W07": {
+    "ok": true,
+    "got": {
+     "x": 2,
+     "y": 1,
+     "picked": [
+      "A"
+     ],
+     "steps": 7,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W08": {
+    "ok": true,
+    "got": {
+     "x": 6,
+     "y": 1,
+     "picked": [
+      "A",
+      "B"
+     ],
+     "steps": 11,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W09": {
+    "ok": true,
+    "got": {
+     "x": 6,
+     "y": 1,
+     "picked": [
+      "A",
+      "B"
+     ],
+     "steps": 11,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W10": {
+    "ok": true,
+    "got": {
+     "x": 6,
+     "y": 4,
+     "picked": [
+      "A",
+      "B",
+      "C"
+     ],
+     "steps": 14,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W11": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 5,
+     "picked": [
+      "A",
+      "B",
+      "C"
+     ],
+     "steps": 21,
+     "delivered": true,
+     "optimalSteps": 21
+    }
+   },
+   "W12": {
+    "ok": true,
+    "got": {
+     "x": 1,
+     "y": 5,
+     "picked": [
+      "A",
+      "B",
+      "C"
+     ],
+     "steps": 20,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W13": {
+    "ok": true,
+    "got": {
+     "x": 2,
+     "y": 2,
+     "picked": [],
+     "steps": 6,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W14": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W15": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 5,
+     "picked": [],
+     "steps": 5,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W16": {
+    "ok": true,
+    "got": {
+     "x": 6,
+     "y": 1,
+     "picked": [],
+     "steps": 15,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W17": {
+    "ok": true,
+    "got": {
+     "x": 2,
+     "y": 1,
+     "picked": [
+      "A"
+     ],
+     "steps": 9,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W18": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W19": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W20": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   }
+  },
+  "points": {
+   "hareket_paket": 40,
+   "rota_auto": 15,
+   "geri_sifirla": 20,
+   "mobil": 10,
+   "yerel": 10
+  },
+  "bytes": 13985,
+  "hasApi": true,
+  "startText": "DEPO / ROTA PLANLAMA\n\nKargo Rotası.\n\nPaketleri sırayla topla, sevk noktasına ulaştır.\n\n8 × 6 hücre\nDepo haritası\nSENTETİK HARİTA\nSEN\n×\n×\nA\nB\n×\n×\n×\n×\n×\n×\n×\nC\nS\n●\nSen\nA\nPaket\nS\nSevk\n×\nDuvar\n✓\nAlındı\n0\ngeçerli hamle\nEn az teslim\n21 adım\nA\nB\nC\nS\n\nSıradaki paket: A\n\nTeslim bekliyor · 0/3 paket alındı.\n\n↑\n←\n↓\n→\n↶ Geri Al\n↺ Sıfırla\n\nOk tuşları veya yön düğmeleriyle ilerle.\nYalnız sıradaki paket alınır.\n\nA → B → C → Sevk\nHer hücre bir adım.",
+  "optimalOnScreen": true,
+  "afterBump": {
+   "x": 0,
+   "y": 0,
+   "picked": [],
+   "steps": 0,
+   "delivered": false,
+   "optimalSteps": 21
+  },
+  "afterKeysRoute": {
+   "x": 0,
+   "y": 5,
+   "picked": [
+    "A",
+    "B",
+    "C"
+   ],
+   "steps": 21,
+   "delivered": true,
+   "optimalSteps": 21
+  },
+  "deliveredText": "DEPO / ROTA PLANLAMA\n\nKargo Rotası.\n\nPaketleri sırayla topla, sevk noktasına ulaştır.\n\n8 × 6 hücre\nDepo haritası\nSENTETİK HARİTA\n×\n×\n✓\n✓\n×\n×\n×\n×\n×\n×\n×\n✓\nS\nSEN\n●\nSen\nA\nPaket\nS\nSevk\n×\nDuvar\n✓\nAlındı\n21\ngeçerli hamle\nEn az teslim\n21 adım\nA ✓\nB ✓\nC ✓\nS ✓\n\n✓ Teslim tamamlandı!\n\nEn kısa rotayı tamamladın.\n\n↑\n←\n↓\n→\n↶ Geri Al\n↺ Sıfırla\n\nOk tuşları veya yön düğmeleriyle ilerle.\nYalnız sıradaki paket alınır.\n\nA → B → C → Sevk\nHer hücre bir adım.",
+  "keyboardRouteOk": true,
+  "overflow": {
+   "1280": {
+    "sw": 1280,
+    "cw": 1280
+   },
+   "390": {
+    "sw": 390,
+    "cw": 390
+   }
+  },
+  "buttons": [
+   {
+    "t": "↑",
+    "a": "Yukarı",
+    "w": 46,
+    "h": 46
+   },
+   {
+    "t": "←",
+    "a": "Sola",
+    "w": 46,
+    "h": 46
+   },
+   {
+    "t": "↓",
+    "a": "Aşağı",
+    "w": 46,
+    "h": 46
+   },
+   {
+    "t": "→",
+    "a": "Sağa",
+    "w": 46,
+    "h": 46
+   },
+   {
+    "t": "↶ Geri Al",
+    "a": "Son hamleyi geri al",
+    "w": 75,
+    "h": 44
+   },
+   {
+    "t": "↺ Sıfırla",
+    "a": "",
+    "w": 75,
+    "h": 44
+   }
+  ],
+  "dirButtons": {
+   "up": {
+    "t": "↑",
+    "a": "Yukarı",
+    "w": 46,
+    "h": 46
+   },
+   "down": {
+    "t": "↓",
+    "a": "Aşağı",
+    "w": 46,
+    "h": 46
+   },
+   "left": {
+    "t": "←",
+    "a": "Sola",
+    "w": 46,
+    "h": 46
+   },
+   "right": {
+    "t": "→",
+    "a": "Sağa",
+    "w": 46,
+    "h": 46
+   }
+  },
+  "clickLabel": "Aşağı",
+  "autoTotal": 95
+ },
+ "claude": {
+  "side": "claude",
+  "requests": [],
+  "console": [],
+  "tests": {
+   "W01": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W02": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W03": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W04": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W05": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 1,
+     "picked": [],
+     "steps": 1,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W06": {
+    "ok": true,
+    "got": {
+     "x": 2,
+     "y": 1,
+     "picked": [
+      "A"
+     ],
+     "steps": 7,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W07": {
+    "ok": true,
+    "got": {
+     "x": 2,
+     "y": 1,
+     "picked": [
+      "A"
+     ],
+     "steps": 7,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W08": {
+    "ok": true,
+    "got": {
+     "x": 6,
+     "y": 1,
+     "picked": [
+      "A",
+      "B"
+     ],
+     "steps": 11,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W09": {
+    "ok": true,
+    "got": {
+     "x": 6,
+     "y": 1,
+     "picked": [
+      "A",
+      "B"
+     ],
+     "steps": 11,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W10": {
+    "ok": true,
+    "got": {
+     "x": 6,
+     "y": 4,
+     "picked": [
+      "A",
+      "B",
+      "C"
+     ],
+     "steps": 14,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W11": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 5,
+     "picked": [
+      "A",
+      "B",
+      "C"
+     ],
+     "steps": 21,
+     "delivered": true,
+     "optimalSteps": 21
+    }
+   },
+   "W12": {
+    "ok": true,
+    "got": {
+     "x": 1,
+     "y": 5,
+     "picked": [
+      "A",
+      "B",
+      "C"
+     ],
+     "steps": 20,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W13": {
+    "ok": true,
+    "got": {
+     "x": 2,
+     "y": 2,
+     "picked": [],
+     "steps": 6,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W14": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W15": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 5,
+     "picked": [],
+     "steps": 5,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W16": {
+    "ok": true,
+    "got": {
+     "x": 6,
+     "y": 1,
+     "picked": [],
+     "steps": 15,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W17": {
+    "ok": true,
+    "got": {
+     "x": 2,
+     "y": 1,
+     "picked": [
+      "A"
+     ],
+     "steps": 9,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W18": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W19": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   },
+   "W20": {
+    "ok": true,
+    "got": {
+     "x": 0,
+     "y": 0,
+     "picked": [],
+     "steps": 0,
+     "delivered": false,
+     "optimalSteps": 21
+    }
+   }
+  },
+  "points": {
+   "hareket_paket": 40,
+   "rota_auto": 15,
+   "geri_sifirla": 20,
+   "mobil": 10,
+   "yerel": 10
+  },
+  "bytes": 16160,
+  "hasApi": true,
+  "startText": "Depo Teslimatı\n\nPaketleri A → B → C sırasıyla al, sonra sevk noktasına (S) götür.\n\n●\nA\nB\nC\nS\nHamle\n0\nEn az teslim adımı\n21 adım\nSıradaki paket\nA\nAlınan paketler\nYok\nTeslim durumu\nTeslim edilmedi\nKonum\nx 0, y 0\n\nOk tuşları ya da yön düğmeleriyle hareket et.\n\n▲\n◀\n▶\n▼\nGeri Al\nSıfırla\nSen (●)\nDuvar (çizgili)\nPaket (harf, alınınca ✓)\nSevk noktası (S)",
+  "optimalOnScreen": true,
+  "afterBump": {
+   "x": 0,
+   "y": 0,
+   "picked": [],
+   "steps": 0,
+   "delivered": false,
+   "optimalSteps": 21
+  },
+  "afterKeysRoute": {
+   "x": 0,
+   "y": 5,
+   "picked": [
+    "A",
+    "B",
+    "C"
+   ],
+   "steps": 21,
+   "delivered": true,
+   "optimalSteps": 21
+  },
+  "deliveredText": "Depo Teslimatı\n\nPaketleri A → B → C sırasıyla al, sonra sevk noktasına (S) götür.\n\nA✓\nB✓\nC✓\nS✓\n●\nHamle\n21\nEn az teslim adımı\n21 adım\nSıradaki paket\nYok (bitti)\nAlınan paketler\nA, B, C\nTeslim durumu\n✓ Teslim tamamlandı\nKonum\nx 0, y 5\n\nTeslim tamamlandı: 21 hamle (en iyi sonuç!).\n\n▲\n◀\n▶\n▼\nGeri Al\nSıfırla\nSen (●)\nDuvar (çizgili)\nPaket (harf, alınınca ✓)\nSevk noktası (S)",
+  "keyboardRouteOk": true,
+  "overflow": {
+   "1280": {
+    "sw": 1280,
+    "cw": 1280
+   },
+   "390": {
+    "sw": 390,
+    "cw": 390
+   }
+  },
+  "buttons": [
+   {
+    "t": "▲",
+    "a": "Yukarı",
+    "w": 52,
+    "h": 48
+   },
+   {
+    "t": "◀",
+    "a": "Sola",
+    "w": 52,
+    "h": 48
+   },
+   {
+    "t": "▶",
+    "a": "Sağa",
+    "w": 52,
+    "h": 48
+   },
+   {
+    "t": "▼",
+    "a": "Aşağı",
+    "w": 52,
+    "h": 48
+   },
+   {
+    "t": "Geri Al",
+    "a": "",
+    "w": 85.078125,
+    "h": 44
+   },
+   {
+    "t": "Sıfırla",
+    "a": "",
+    "w": 85.078125,
+    "h": 44
+   }
+  ],
+  "dirButtons": {
+   "up": {
+    "t": "▲",
+    "a": "Yukarı",
+    "w": 52,
+    "h": 48
+   },
+   "down": {
+    "t": "▼",
+    "a": "Aşağı",
+    "w": 52,
+    "h": 48
+   },
+   "left": {
+    "t": "◀",
+    "a": "Sola",
+    "w": 52,
+    "h": 48
+   },
+   "right": {
+    "t": "▶",
+    "a": "Sağa",
+    "w": 52,
+    "h": 48
+   }
+  },
+  "clickLabel": "Aşağı",
+  "autoTotal": 95
+ }
+}

@@ -1,0 +1,491 @@
+{
+  "status": "ORACLE_ONLY_NOT_RUN_AGAINST_MODELS",
+  "synthetic": true,
+  "points_per_case": 2,
+  "test_cases": [
+    {
+      "id": "W01",
+      "name": "Başlangıç",
+      "reset_before": true,
+      "operations": [],
+      "expected": {
+        "x": 0,
+        "y": 0,
+        "picked": [],
+        "steps": 0,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W02",
+      "name": "Sol sınır",
+      "reset_before": true,
+      "operations": [
+        "left"
+      ],
+      "expected": {
+        "x": 0,
+        "y": 0,
+        "picked": [],
+        "steps": 0,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W03",
+      "name": "Üst sınır",
+      "reset_before": true,
+      "operations": [
+        "up"
+      ],
+      "expected": {
+        "x": 0,
+        "y": 0,
+        "picked": [],
+        "steps": 0,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W04",
+      "name": "Sağdaki duvar",
+      "reset_before": true,
+      "operations": [
+        "right"
+      ],
+      "expected": {
+        "x": 0,
+        "y": 0,
+        "picked": [],
+        "steps": 0,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W05",
+      "name": "Hareket sonrası duvar",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "right"
+      ],
+      "expected": {
+        "x": 0,
+        "y": 1,
+        "picked": [],
+        "steps": 1,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W06",
+      "name": "A konumu",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up"
+      ],
+      "expected": {
+        "x": 2,
+        "y": 1,
+        "picked": [
+          "A"
+        ],
+        "steps": 7,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W07",
+      "name": "A sayacı",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up"
+      ],
+      "expected": {
+        "x": 2,
+        "y": 1,
+        "picked": [
+          "A"
+        ],
+        "steps": 7,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W08",
+      "name": "B toplama",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up",
+        "right",
+        "right",
+        "right",
+        "right"
+      ],
+      "expected": {
+        "x": 6,
+        "y": 1,
+        "picked": [
+          "A",
+          "B"
+        ],
+        "steps": 11,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W09",
+      "name": "B sayacı",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up",
+        "right",
+        "right",
+        "right",
+        "right"
+      ],
+      "expected": {
+        "x": 6,
+        "y": 1,
+        "picked": [
+          "A",
+          "B"
+        ],
+        "steps": 11,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W10",
+      "name": "C toplama",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up",
+        "right",
+        "right",
+        "right",
+        "right",
+        "down",
+        "down",
+        "down"
+      ],
+      "expected": {
+        "x": 6,
+        "y": 4,
+        "picked": [
+          "A",
+          "B",
+          "C"
+        ],
+        "steps": 14,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W11",
+      "name": "Teslim",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up",
+        "right",
+        "right",
+        "right",
+        "right",
+        "down",
+        "down",
+        "down",
+        "down",
+        "left",
+        "left",
+        "left",
+        "left",
+        "left",
+        "left"
+      ],
+      "expected": {
+        "x": 0,
+        "y": 5,
+        "picked": [
+          "A",
+          "B",
+          "C"
+        ],
+        "steps": 21,
+        "delivered": true,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W12",
+      "name": "Teslimi geri al",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up",
+        "right",
+        "right",
+        "right",
+        "right",
+        "down",
+        "down",
+        "down",
+        "down",
+        "left",
+        "left",
+        "left",
+        "left",
+        "left",
+        "left",
+        "undo"
+      ],
+      "expected": {
+        "x": 1,
+        "y": 5,
+        "picked": [
+          "A",
+          "B",
+          "C"
+        ],
+        "steps": 20,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W13",
+      "name": "A toplamasını geri al",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up",
+        "undo"
+      ],
+      "expected": {
+        "x": 2,
+        "y": 2,
+        "picked": [],
+        "steps": 6,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W14",
+      "name": "Tam teslimden sıfırla",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up",
+        "right",
+        "right",
+        "right",
+        "right",
+        "down",
+        "down",
+        "down",
+        "down",
+        "left",
+        "left",
+        "left",
+        "left",
+        "left",
+        "left",
+        "reset"
+      ],
+      "expected": {
+        "x": 0,
+        "y": 0,
+        "picked": [],
+        "steps": 0,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W15",
+      "name": "Paketler eksikken sevk",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "down",
+        "down"
+      ],
+      "expected": {
+        "x": 0,
+        "y": 5,
+        "picked": [],
+        "steps": 5,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W16",
+      "name": "Sırası gelmeyen B ve C",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "right",
+        "right",
+        "right",
+        "right",
+        "up",
+        "up",
+        "up",
+        "up"
+      ],
+      "expected": {
+        "x": 6,
+        "y": 1,
+        "picked": [],
+        "steps": 15,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W17",
+      "name": "A tekrar toplanmaz",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "down",
+        "down",
+        "right",
+        "right",
+        "up",
+        "up",
+        "down",
+        "up"
+      ],
+      "expected": {
+        "x": 2,
+        "y": 1,
+        "picked": [
+          "A"
+        ],
+        "steps": 9,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W18",
+      "name": "Engelli hamle geçmişe eklenmez",
+      "reset_before": true,
+      "operations": [
+        "down",
+        "right",
+        "undo"
+      ],
+      "expected": {
+        "x": 0,
+        "y": 0,
+        "picked": [],
+        "steps": 0,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W19",
+      "name": "Boş geçmişte geri al",
+      "reset_before": true,
+      "operations": [
+        "undo"
+      ],
+      "expected": {
+        "x": 0,
+        "y": 0,
+        "picked": [],
+        "steps": 0,
+        "delivered": false,
+        "optimalSteps": 21
+      }
+    },
+    {
+      "id": "W20",
+      "name": "state kopyası",
+      "reset_before": true,
+      "operations": [],
+      "expected": {
+        "x": 0,
+        "y": 0,
+        "picked": [],
+        "steps": 0,
+        "delivered": false,
+        "optimalSteps": 21
+      },
+      "extra_check": "Bir state() sonucunda x=99 yapıp picked listesine FAKE ekle. Sonraki state() başlangıçla aynı kalmalı."
+    }
+  ]
+}

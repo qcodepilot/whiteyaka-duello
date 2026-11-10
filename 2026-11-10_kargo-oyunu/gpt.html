@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kargo Rotası · Depo oyunu</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#182b3a;background:#f3f5f2;font-synthesis:none;--blue:#164d68;--line:#dce3df;--orange:#edab55}
+*{box-sizing:border-box}body{margin:0}button{font:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible{outline:3px solid #c57518;outline-offset:4px}button:disabled{cursor:default;opacity:.4}
+.page{width:min(100% - 48px,1020px);margin:0 auto;padding:30px 0 20px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.eyebrow{font-size:11px;letter-spacing:.17em;font-weight:750;text-transform:uppercase;color:#567064;margin:0 0 6px}h1{font-size:32px;letter-spacing:-1.2px;line-height:1.1;margin:0}.tag{font-size:12px;border:1px solid #ccd8d0;padding:8px 12px;border-radius:30px;color:#536b5c}.intro{font-size:14px;line-height:1.5;color:#61716d;margin:8px 0 0}
+.dashboard{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:20px}.map-card,.panel{background:#fff;border:1px solid var(--line);border-radius:18px}.map-card{padding:20px}.map-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.map-heading h2{font-size:14px;margin:0}.map-heading span{font-size:11px;letter-spacing:.09em;color:#7b8984}.board{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px;background:#e1e8e3;border:1px solid #d6e0d9;padding:7px;border-radius:12px;user-select:none}.cell{aspect-ratio:1;position:relative;display:flex;align-items:center;justify-content:center;background:#f8faf7;border-radius:6px;font-size:18px;font-weight:800;color:#61776c;min-width:0}.cell.wall{background:repeating-linear-gradient(135deg,#c5cec8 0,#c5cec8 4px,#d0d8d2 4px,#d0d8d2 8px);color:#74857a;font-size:16px}.cell.package{background:#fff0d6;color:#855119;border:1px solid #e8c58f}.cell.waiting{border:1px dashed #ccae80;background:#faf5e9}.cell.collected{background:#e4eee6;color:#657f6b;border:1px solid #b9cfbf}.cell.dispatch{background:#e2eef1;color:#225d70;border:1px solid #a5c5cc}.cell.home:not(.occupied)::after{content:"⌂";font-size:21px;color:#82958b}.player{position:absolute;inset:5px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--blue);color:white;font-size:10px;letter-spacing:.02em;font-weight:800;box-shadow:0 2px 5px #164d6825;border:2px solid white}.cell.occupied{outline:2px solid var(--blue);outline-offset:-1px}.legend{display:flex;flex-wrap:wrap;gap:9px 17px;margin-top:16px;color:#65766e;font-size:11px;align-items:center}.legend span{display:flex;align-items:center;gap:5px}.key{font-style:normal;display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:4px;background:#fff0d6;color:#855119;font-weight:800}.key.you{background:var(--blue);color:white;border-radius:50%;font-size:8px}.key.wall{background:#cbd4ce;color:#5f7366}.key.dispatch{background:#e2eef1;color:#225d70}
+.panel{padding:21px;display:flex;flex-direction:column}.panel h2{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#758279;margin:0 0 14px}.metrics{display:flex;align-items:end;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--line)}.steps{font-size:44px;line-height:1;letter-spacing:-2px;font-weight:750;font-variant-numeric:tabular-nums}.metric-label{font-size:12px;color:#6d7b72;margin-top:5px}.optimal{text-align:right;font-size:12px;line-height:1.6;color:#6d7b72}.optimal strong{color:var(--blue);font-size:18px}.route{display:flex;align-items:center;gap:8px;margin:18px 0 12px}.stop{display:flex;align-items:center;justify-content:center;width:35px;height:35px;border:1px solid #dbe2db;border-radius:9px;color:#9aa69e;font-size:13px;font-weight:750}.stop.current{background:#fff0d6;border-color:#dfb36f;color:#855119}.stop.done{background:#e4eee6;border-color:#bdd0bf;color:#3a684b}.route-line{height:1px;flex:1;background:var(--line)}.status{font-size:14px;font-weight:650;min-height:20px;margin:0}.hint{font-size:12px;color:#6c7b71;line-height:1.5;margin:5px 0 0;min-height:36px}.controls{margin-top:auto;padding-top:17px}.dpad{display:grid;grid-template-columns:repeat(3,48px);grid-template-rows:repeat(2,48px);justify-content:center;gap:6px}.direction{border:1px solid #d5dfd8;background:#f5f7f3;border-radius:10px;color:#254a56;font-size:25px;line-height:1;box-shadow:0 2px 0 #dce4dd}.direction:hover{background:#e7eee8}.direction:active{transform:translateY(2px);box-shadow:none}.up{grid-column:2}.left{grid-column:1;grid-row:2}.down{grid-column:2;grid-row:2}.right{grid-column:3;grid-row:2}.actions{display:flex;gap:8px;margin-top:17px}.action{min-height:44px;border:1px solid #d6dfd7;background:white;border-radius:9px;color:#415a4b;font-size:12px;font-weight:650;flex:1}.action:hover:enabled{background:#f3f6f1}.footer{display:flex;justify-content:space-between;gap:15px;color:#7b887f;font-size:11px;line-height:1.6;margin-top:16px}.footer p{margin:0}.finish .board{border-color:#6a9978}.finish .status{color:#316d48}
+.board,.map-heading,.legend{max-width:520px;margin-left:auto;margin-right:auto}
+@media(max-width:700px){.page{width:calc(100% - 28px);max-width:440px;padding:20px 0 14px}.top{margin-bottom:16px}.tag{font-size:10px;padding:6px 9px}h1{font-size:27px}.intro{font-size:12px;max-width:270px}.eyebrow{font-size:10px}.dashboard{display:flex;flex-direction:column;gap:12px}.map-card{padding:13px}.map-heading{margin-bottom:11px}.board{gap:4px;padding:5px;border-radius:9px}.cell{font-size:15px;border-radius:4px}.player{inset:3px;font-size:8px;border-width:1px}.legend{margin-top:11px;gap:7px 13px;font-size:10px}.key{width:17px;height:17px}.panel{padding:15px;display:grid;grid-template-columns:minmax(0,1fr) 156px;column-gap:15px}.panel h2{display:none}.metrics{grid-column:1;padding-bottom:10px;align-items:center}.steps{font-size:32px;letter-spacing:-1px}.metric-label{font-size:10px}.optimal{font-size:10px;line-height:1.4}.optimal strong{font-size:16px}.route{grid-column:1;margin:11px 0 7px;gap:4px}.stop{width:27px;height:27px;font-size:11px;border-radius:7px}.status{grid-column:1;font-size:12px}.hint{grid-column:1;font-size:10px;line-height:1.45;min-height:29px;margin-top:4px}.controls{grid-column:2;grid-row:1 / span 5;padding-top:0;align-self:center;margin:0}.dpad{grid-template-columns:repeat(3,46px);grid-template-rows:repeat(2,46px);gap:5px}.direction{font-size:23px}.actions{margin-top:10px;gap:6px}.action{font-size:10px;padding:4px}.footer{font-size:10px;margin-top:12px;gap:10px}.footer p:last-child{text-align:right;white-space:nowrap}}
+@media(prefers-reduced-motion:no-preference){button{transition:background .12s,transform .12s}}
+</style>
+</head>
+<body>
+<main class="page" id="game">
+ <header class="top"><div><p class="eyebrow">Depo / Rota planlama</p><h1>Kargo Rotası<span style="color:#cc8733">.</span></h1><p class="intro">Paketleri sırayla topla, sevk noktasına ulaştır.</p></div><span class="tag">8 × 6 hücre</span></header>
+ <div class="dashboard">
+  <section class="map-card" aria-labelledby="map-title"><div class="map-heading"><h2 id="map-title">Depo haritası</h2><span>SENTETİK HARİTA</span></div><div class="board" id="board" role="img" aria-label="Depo haritası"></div><div class="legend"><span><i class="key you">●</i> Sen</span><span><i class="key">A</i> Paket</span><span><i class="key dispatch">S</i> Sevk</span><span><i class="key wall">×</i> Duvar</span><span><i class="key">✓</i> Alındı</span></div></section>
+  <section class="panel" aria-label="Oyun durumu ve kontroller"><h2>Teslimat paneli</h2><div class="metrics"><div><div class="steps" id="steps">0</div><div class="metric-label">geçerli hamle</div></div><div class="optimal">En az teslim<br><strong id="optimal">—</strong> adım</div></div><div class="route" aria-label="Paket sırası: A, B, C, ardından sevk"><span class="stop" id="stop-A">A</span><span class="route-line"></span><span class="stop" id="stop-B">B</span><span class="route-line"></span><span class="stop" id="stop-C">C</span><span class="route-line"></span><span class="stop" id="stop-S">S</span></div><p class="status" id="status" role="status" aria-live="polite"></p><p class="hint" id="hint"></p><div class="controls"><div class="dpad" aria-label="Hareket düğmeleri"><button class="direction up" data-dir="up" aria-label="Yukarı">↑</button><button class="direction left" data-dir="left" aria-label="Sola">←</button><button class="direction down" data-dir="down" aria-label="Aşağı">↓</button><button class="direction right" data-dir="right" aria-label="Sağa">→</button></div><div class="actions"><button class="action" id="undo" aria-label="Son hamleyi geri al">↶ Geri Al</button><button class="action" id="reset">↺ Sıfırla</button></div></div></section>
+ </div>
+ <footer class="footer"><p>Ok tuşları veya yön düğmeleriyle ilerle.<br>Yalnız sıradaki paket alınır.</p><p>A → B → C → Sevk<br>Her hücre bir adım.</p></footer>
+</main>
+<script>
+'use strict';
+(() => {
+ const map={width:8,height:6,start:[0,0],walls:[[1,0],[1,1],[1,2],[3,2],[4,2],[5,2],[3,3],[5,3],[3,4]],pickups_in_order:[{id:'A',position:[2,1]},{id:'B',position:[6,1]},{id:'C',position:[6,4]}],dispatch:[0,5]};
+ const directions={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
+ const walls=new Set(map.walls.map(p=>p.join(',')));
+ const same=(x,y,p)=>x===p[0]&&y===p[1];
+ const allowed=(x,y)=>x>=0&&y>=0&&x<map.width&&y<map.height&&!walls.has(x+','+y);
+ function shortestDelivery(){
+  const queue=[[...map.start,0,0]],seen=new Set([map.start.join(',')+',0']);
+  for(let i=0;i<queue.length;i++){
+   const [x,y,n,d]=queue[i];
+   if(n===3&&same(x,y,map.dispatch))return d;
+   for(const [dx,dy] of Object.values(directions)){
+    const nx=x+dx,ny=y+dy;if(!allowed(nx,ny))continue;
+    const next=n<3&&same(nx,ny,map.pickups_in_order[n].position)?n+1:n;
+    const key=[nx,ny,next].join(',');
+    if(!seen.has(key)){seen.add(key);queue.push([nx,ny,next,d+1]);}
+   }
+  }
+  return null;
+ }
+ const optimalSteps=shortestDelivery();
+ let current,history=[];
+ const el=id=>document.getElementById(id);
+ function state(){return {x:current.x,y:current.y,picked:[...current.picked],steps:current.steps,delivered:current.delivered,optimalSteps};}
+ function render(){
+  el('steps').textContent=current.steps;
+  el('optimal').textContent=optimalSteps===null?'—':optimalSteps;
+  el('undo').disabled=history.length===0;
+  document.querySelectorAll('[data-dir]').forEach(b=>b.disabled=current.delivered);
+  el('game').classList.toggle('finish',current.delivered);
+  const next=map.pickups_in_order[current.picked.length];
+  el('status').textContent=current.delivered?'✓ Teslim tamamlandı!':next?'Sıradaki paket: '+next.id:'Sıradaki durak: Sevk';
+  el('hint').textContent=current.delivered?(current.steps===optimalSteps?'En kısa rotayı tamamladın.':current.steps+' hamlede teslim ettin. En az: '+optimalSteps+'.'):(next?'Teslim bekliyor · '+current.picked.length+'/3 paket alındı.':'3/3 paket alındı. S hücresine ulaş.');
+  for(const p of map.pickups_in_order){
+   const done=current.picked.includes(p.id),s=el('stop-'+p.id);
+   s.className='stop'+(done?' done':next&&next.id===p.id?' current':'');
+   s.textContent=done?p.id+' ✓':p.id;
+  }
+  el('stop-S').className='stop'+(current.delivered?' done':!next?' current':'');
+  el('stop-S').textContent=current.delivered?'S ✓':'S';
+  const board=el('board');board.replaceChildren();
+  for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++){
+   const cell=document.createElement('div');cell.className='cell';
+   let label='Boş hücre';
+   if(walls.has(x+','+y)){cell.classList.add('wall');cell.textContent='×';label='Duvar';}
+   const p=map.pickups_in_order.find(p=>same(x,y,p.position));
+   if(p){const done=current.picked.includes(p.id);cell.classList.add('package',done?'collected':next&&next.id===p.id?'available':'waiting');cell.textContent=done?'✓':p.id;label='Paket '+p.id+(done?', alındı':'');}
+   if(same(x,y,map.dispatch)){cell.classList.add('dispatch');cell.textContent='S';label='Sevk noktası';}
+   if(same(x,y,map.start))cell.classList.add('home');
+   if(current.x===x&&current.y===y){cell.classList.add('occupied');const marker=document.createElement('span');marker.className='player';marker.textContent='SEN';cell.appendChild(marker);label+=', oyuncu burada';}
+   cell.title='('+x+', '+y+') '+label;cell.setAttribute('aria-hidden','true');board.appendChild(cell);
+  }
+  board.setAttribute('aria-label','8 sütun, 6 satır depo haritası. Konum: x '+current.x+', y '+current.y+'. '+el('status').textContent);
+ }
+ function step(direction){
+  if(!Object.prototype.hasOwnProperty.call(directions,direction)||current.delivered)return state();
+  const [dx,dy]=directions[direction],x=current.x+dx,y=current.y+dy;
+  if(!allowed(x,y))return state();
+  history.push(state());current.x=x;current.y=y;current.steps++;
+  const next=map.pickups_in_order[current.picked.length];
+  if(next&&same(x,y,next.position))current.picked.push(next.id);
+  current.delivered=current.picked.length===3&&same(x,y,map.dispatch);
+  render();return state();
+ }
+ function undo(){if(history.length){current=history.pop();render();}return state();}
+ function reset(){current={x:map.start[0],y:map.start[1],picked:[],steps:0,delivered:false};history=[];render();return state();}
+ document.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>step(b.dataset.dir)));
+ el('undo').addEventListener('click',undo);el('reset').addEventListener('click',reset);
+ const keys={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+ document.addEventListener('keydown',event=>{if(Object.prototype.hasOwnProperty.call(keys,event.key)){event.preventDefault();step(keys[event.key]);}});
+ window.__duel={step,undo,reset,state};reset();
+})();
+</script>
+</body>
+</html>

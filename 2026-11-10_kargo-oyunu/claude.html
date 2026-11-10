@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Depo Teslimatı</title>
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --panel: #ffffff;
+    --ink: #1d1f24;
+    --muted: #5b606b;
+    --line: #c9c6bd;
+    --floor: #fbfaf7;
+    --wall: #3a3d45;
+    --accent: #0b5cad;
+    --pkg: #fff1c7;
+    --pkg-line: #9a6b00;
+    --done: #e3f2e5;
+    --done-line: #2d7a3a;
+    --dispatch: #e6eefb;
+    --focus: #d9480f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --panel: #1f2228;
+      --ink: #eceae4;
+      --muted: #a6abb5;
+      --line: #3b3f48;
+      --floor: #23262d;
+      --wall: #8d929c;
+      --accent: #6aa8ec;
+      --pkg: #4a3d17;
+      --pkg-line: #f0c45a;
+      --done: #1e3a24;
+      --done-line: #7fd18c;
+      --dispatch: #1e2d45;
+      --focus: #ff8a4c;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  .app {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 100%;
+  }
+  header h1 { margin: 0; font-size: 1.25rem; }
+  header p { margin: 2px 0 0; color: var(--muted); font-size: 0.875rem; }
+  .main { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+  .board-wrap { width: 100%; display: flex; justify-content: center; }
+  .board {
+    --bw: min(100%, 560px, calc((100vh - 130px) * 4 / 3));
+    width: var(--bw);
+    aspect-ratio: 8 / 6;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 2px;
+    padding: 2px;
+    background: var(--line);
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+  }
+  .cell {
+    position: relative;
+    background: var(--floor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: clamp(0.7rem, 2.6vw, 1.15rem);
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .cell.wall {
+    background: var(--wall);
+    background-image: repeating-linear-gradient(45deg, transparent 0 5px, rgba(255,255,255,0.22) 5px 7px);
+  }
+  .cell.pkg { background: var(--pkg); box-shadow: inset 0 0 0 2px var(--pkg-line); border-radius: 2px; }
+  .cell.pkg.next { box-shadow: inset 0 0 0 3px var(--pkg-line); }
+  .cell.pkg.next::after {
+    content: "SIRADA";
+    position: absolute; bottom: 1px; left: 0; right: 0;
+    text-align: center; font-size: 0.5rem; letter-spacing: 0.04em; color: var(--pkg-line);
+  }
+  .cell.pkg.got { background: var(--done); box-shadow: inset 0 0 0 2px var(--done-line); color: var(--done-line); }
+  .cell.pkg.got .lbl { text-decoration: line-through; }
+  .cell.dispatch { background: var(--dispatch); box-shadow: inset 0 0 0 2px var(--accent); color: var(--accent); }
+  .cell.dispatch.ready { box-shadow: inset 0 0 0 3px var(--accent); }
+  .cell .lbl { pointer-events: none; }
+  .player {
+    position: absolute;
+    inset: 14%;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(0.6rem, 2.2vw, 0.95rem);
+    border: 2px solid var(--panel);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .side { width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 10px; }
+  .status {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 12px;
+    margin: 0;
+  }
+  .status div { min-width: 0; }
+  .status dt { font-size: 0.75rem; color: var(--muted); margin: 0; }
+  .status dd { margin: 0; font-weight: 700; font-size: 1rem; overflow-wrap: anywhere; }
+  .status .wide { grid-column: 1 / -1; }
+  .msg { min-height: 1.4em; font-size: 0.9rem; color: var(--muted); margin: 0; }
+  .msg.win { color: var(--done-line); font-weight: 700; }
+  .controls { display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; }
+  .dpad {
+    display: grid;
+    grid-template-columns: repeat(3, 52px);
+    grid-template-rows: repeat(3, 48px);
+    gap: 4px;
+  }
+  .dpad button[data-dir="up"] { grid-column: 2; grid-row: 1; }
+  .dpad button[data-dir="left"] { grid-column: 1; grid-row: 2; }
+  .dpad button[data-dir="right"] { grid-column: 3; grid-row: 2; }
+  .dpad button[data-dir="down"] { grid-column: 2; grid-row: 3; }
+  button {
+    min-width: 44px;
+    min-height: 44px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--panel);
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  button:hover { background: var(--floor); }
+  button:active { transform: translateY(1px); }
+  button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+  .actions { display: flex; flex-direction: column; gap: 8px; }
+  .actions button { padding: 0 16px; }
+  .legend { font-size: 0.8rem; color: var(--muted); margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+  .sw { display: inline-block; width: 0.9em; height: 0.9em; vertical-align: -0.1em; margin-right: 4px; border: 1px solid var(--ink); }
+  .sw.w { background: var(--wall); background-image: repeating-linear-gradient(45deg, transparent 0 2px, rgba(255,255,255,0.35) 2px 3px); }
+  .sw.p { background: var(--pkg); }
+  .sw.s { background: var(--dispatch); }
+  .sw.o { background: var(--accent); border-radius: 50%; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  @media (min-width: 900px) {
+    .main { flex-direction: row; align-items: flex-start; justify-content: center; gap: 24px; }
+    .board-wrap { width: auto; flex: 0 1 auto; }
+    .board { --bw: min(56vw, 620px, calc((100vh - 110px) * 4 / 3)); }
+    .side { width: 340px; flex: 0 0 340px; }
+  }
+  @media (max-height: 760px) and (min-width: 900px) {
+    .app { padding-top: 8px; padding-bottom: 8px; gap: 8px; }
+    .dpad { grid-template-rows: repeat(3, 46px); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Depo Teslimatı</h1>
+    <p>Paketleri A → B → C sırasıyla al, sonra sevk noktasına (S) götür.</p>
+  </header>
+  <div class="main">
+    <div class="board-wrap">
+      <div class="board" id="board" role="grid" aria-label="Depo haritası, 8 sütun 6 satır"></div>
+    </div>
+    <div class="side">
+      <dl class="status" aria-live="polite">
+        <div><dt>Hamle</dt><dd id="steps">0</dd></div>
+        <div><dt>En az teslim adımı</dt><dd id="optimal">-</dd></div>
+        <div><dt>Sıradaki paket</dt><dd id="next">A</dd></div>
+        <div><dt>Alınan paketler</dt><dd id="picked">Yok</dd></div>
+        <div class="wide"><dt>Teslim durumu</dt><dd id="delivery">Teslim edilmedi</dd></div>
+        <div class="wide"><dt>Konum</dt><dd id="pos">x 0, y 0</dd></div>
+      </dl>
+      <p class="msg" id="msg" role="status">Ok tuşları ya da yön düğmeleriyle hareket et.</p>
+      <div class="controls">
+        <div class="dpad" role="group" aria-label="Yön düğmeleri">
+          <button type="button" data-dir="up" aria-label="Yukarı">▲</button>
+          <button type="button" data-dir="left" aria-label="Sola">◀</button>
+          <button type="button" data-dir="right" aria-label="Sağa">▶</button>
+          <button type="button" data-dir="down" aria-label="Aşağı">▼</button>
+        </div>
+        <div class="actions">
+          <button type="button" id="undo">Geri Al</button>
+          <button type="button" id="reset">Sıfırla</button>
+        </div>
+      </div>
+      <ul class="legend">
+        <li><span class="sw o"></span>Sen (●)</li>
+        <li><span class="sw w"></span>Duvar (çizgili)</li>
+        <li><span class="sw p"></span>Paket (harf, alınınca ✓)</li>
+        <li><span class="sw s"></span>Sevk noktası (S)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  "use strict";
+  var MAP = {
+    width: 8,
+    height: 6,
+    start: [0, 0],
+    walls: [[1,0],[1,1],[1,2],[3,2],[4,2],[5,2],[3,3],[5,3],[3,4]],
+    pickups: [
+      { id: "A", position: [2, 1] },
+      { id: "B", position: [6, 1] },
+      { id: "C", position: [6, 4] }
+    ],
+    dispatch: [0, 5]
+  };
+  var W = MAP.width, H = MAP.height;
+  var wallSet = {};
+  MAP.walls.forEach(function (w) { wallSet[w[0] + "," + w[1]] = true; });
+  var DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+
+  function passable(x, y) {
+    return x >= 0 && y >= 0 && x < W && y < H && !wallSet[x + "," + y];
+  }
+
+  // Shared transition: returns new state or null if invalid.
+  function transition(s, dir) {
+    var d = DIRS[dir];
+    if (!d || s.delivered) return null;
+    var nx = s.x + d[0], ny = s.y + d[1];
+    if (!passable(nx, ny)) return null;
+    var picked = s.picked.slice();
+    var nextPkg = MAP.pickups[picked.length];
+    if (nextPkg && nextPkg.position[0] === nx && nextPkg.position[1] === ny) {
+      picked.push(nextPkg.id);
+    }
+    var delivered = picked.length === MAP.pickups.length &&
+      nx === MAP.dispatch[0] && ny === MAP.dispatch[1];
+    return { x: nx, y: ny, picked: picked, steps: s.steps + 1, delivered: delivered };
+  }
+
+  function computeOptimal() {
+    var start = { x: MAP.start[0], y: MAP.start[1], picked: [], steps: 0, delivered: false };
+    var key = function (s) { return s.x + "," + s.y + "," + s.picked.length + "," + (s.delivered ? 1 : 0); };
+    var seen = {}; seen[key(start)] = true;
+    var queue = [start], head = 0;
+    while (head < queue.length) {
+      var cur = queue[head++];
+      if (cur.delivered) return cur.steps;
+      for (var dir in DIRS) {
+        var n = transition(cur, dir);
+        if (!n) continue;
+        var k = key(n);
+        if (seen[k]) continue;
+        seen[k] = true;
+        queue.push(n);
+      }
+    }
+    return null;
+  }
+
+  var OPTIMAL = computeOptimal();
+
+  function initial() {
+    return { x: MAP.start[0], y: MAP.start[1], picked: [], steps: 0, delivered: false };
+  }
+  var state = initial();
+  var history = [];
+
+  function copyState() {
+    return {
+      x: state.x,
+      y: state.y,
+      picked: state.picked.slice(),
+      steps: state.steps,
+      delivered: state.delivered,
+      optimalSteps: OPTIMAL
+    };
+  }
+
+  // Build board
+  var board = document.getElementById("board");
+  var cells = [];
+  for (var y = 0; y < H; y++) {
+    var row = document.createElement("div");
+    row.setAttribute("role", "row");
+    row.style.display = "contents";
+    for (var x = 0; x < W; x++) {
+      var c = document.createElement("div");
+      c.className = "cell";
+      c.setAttribute("role", "gridcell");
+      row.appendChild(c);
+      cells.push(c);
+    }
+    board.appendChild(row);
+  }
+
+  var el = {
+    steps: document.getElementById("steps"),
+    optimal: document.getElementById("optimal"),
+    next: document.getElementById("next"),
+    picked: document.getElementById("picked"),
+    delivery: document.getElementById("delivery"),
+    pos: document.getElementById("pos"),
+    msg: document.getElementById("msg"),
+    undo: document.getElementById("undo")
+  };
+
+  function pkgAt(x, y) {
+    for (var i = 0; i < MAP.pickups.length; i++) {
+      var p = MAP.pickups[i];
+      if (p.position[0] === x && p.position[1] === y) return { p: p, i: i };
+    }
+    return null;
+  }
+
+  function render() {
+    var allPicked = state.picked.length === MAP.pickups.length;
+    for (var y = 0; y < H; y++) {
+      for (var x = 0; x < W; x++) {
+        var c = cells[y * W + x];
+        var cls = "cell", text = "", desc = "boş";
+        if (wallSet[x + "," + y]) { cls += " wall"; desc = "duvar"; }
+        var pk = pkgAt(x, y);
+        if (pk) {
+          var got = pk.i < state.picked.length;
+          var isNext = pk.i === state.picked.length;
+          cls += " pkg" + (got ? " got" : "") + (isNext && !state.delivered ? " next" : "");
+          text = got ? pk.p.id + "✓" : pk.p.id;
+          desc = "paket " + pk.p.id + (got ? ", alındı" : isNext ? ", sırada" : ", bekliyor");
+        }
+        if (x === MAP.dispatch[0] && y === MAP.dispatch[1]) {
+          cls += " dispatch" + (allPicked ? " ready" : "");
+          text = state.delivered ? "S✓" : "S";
+          desc = "sevk noktası" + (state.delivered ? ", teslim edildi" : "");
+        }
+        var here = state.x === x && state.y === y;
+        c.className = cls;
+        c.innerHTML = "";
+        if (text) {
+          var l = document.createElement("span");
+          l.className = "lbl";
+          l.textContent = text;
+          c.appendChild(l);
+        }
+        if (here) {
+          var pl = document.createElement("span");
+          pl.className = "player";
+          pl.textContent = "●";
+          pl.setAttribute("aria-hidden", "true");
+          c.appendChild(pl);
+          desc += ", buradasın";
+        }
+        c.setAttribute("aria-label", "x " + x + ", y " + y + ": " + desc);
+      }
+    }
+    el.steps.textContent = String(state.steps);
+    el.optimal.textContent = OPTIMAL === null ? "Ulaşılamaz" : OPTIMAL + " adım";
+    var nextPkg = MAP.pickups[state.picked.length];
+    el.next.textContent = nextPkg ? nextPkg.id : (state.delivered ? "Yok (bitti)" : "Yok, sevk noktasına git");
+    el.picked.textContent = state.picked.length ? state.picked.join(", ") : "Yok";
+    el.delivery.textContent = state.delivered
+      ? "✓ Teslim tamamlandı"
+      : (allPicked ? "Paketler hazır, sevk noktası bekleniyor" : "Teslim edilmedi");
+    el.pos.textContent = "x " + state.x + ", y " + state.y;
+    el.undo.disabled = history.length === 0;
+  }
+
+  function setMsg(t, win) {
+    el.msg.textContent = t;
+    el.msg.className = "msg" + (win ? " win" : "");
+  }
+
+  function step(dir) {
+    if (!DIRS[dir]) { setMsg("Geçersiz yön."); return copyState(); }
+    if (state.delivered) { setMsg("Teslim tamamlandı. Geri Al ya da Sıfırla kullan."); return copyState(); }
+    var n = transition(state, dir);
+    if (!n) {
+      setMsg("Oraya geçilemez: duvar ya da alan dışı.");
+      return copyState();
+    }
+    history.push({ x: state.x, y: state.y, picked: state.picked.slice(), steps: state.steps, delivered: state.delivered });
+    var before = state.picked.length;
+    state = n;
+    if (state.delivered) {
+      var diff = OPTIMAL !== null ? state.steps - OPTIMAL : 0;
+      setMsg("Teslim tamamlandı: " + state.steps + " hamle" +
+        (OPTIMAL !== null ? (diff === 0 ? " (en iyi sonuç!)" : " (en az " + OPTIMAL + ")") : "") + ".", true);
+    } else if (state.picked.length > before) {
+      setMsg("Paket " + state.picked[state.picked.length - 1] + " alındı.");
+    } else {
+      setMsg("");
+    }
+    render();
+    return copyState();
+  }
+
+  function undo() {
+    if (!history.length) { setMsg("Geri alınacak hamle yok."); render(); return copyState(); }
+    state = history.pop();
+    setMsg("Son hamle geri alındı.");
+    render();
+    return copyState();
+  }
+
+  function reset() {
+    state = initial();
+    history = [];
+    setMsg("Başlangıca dönüldü.");
+    render();
+    return copyState();
+  }
+
+  document.querySelectorAll(".dpad button").forEach(function (b) {
+    b.addEventListener("click", function () { step(b.getAttribute("data-dir")); });
+  });
+  el.undo.addEventListener("click", undo);
+  document.getElementById("reset").addEventListener("click", reset);
+
+  var KEYMAP = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right" };
+  document.addEventListener("keydown", function (e) {
+    var d = KEYMAP[e.key];
+    if (!d || e.altKey || e.ctrlKey || e.metaKey) return;
+    e.preventDefault();
+    step(d);
+  });
+
+  window.__duel = {
+    step: function (dir) { return step(dir); },
+    undo: function () { return undo(); },
+    reset: function () { return reset(); },
+    state: function () { return copyState(); }
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+Ekteki sentetik depo haritasından tek bir index.html üret. İnternet, paket,
+harici font, resim, ses veya sunucu kullanma. Dosya yerelde açılınca çalışsın.
+
+8x6 kareli alanda oyuncu başlangıç noktasından hareket etsin. Koordinatlar
+sıfır tabanlıdır; x sağa, y aşağı artar. Duvarlara ve alan dışına geçilemesin.
+A, B ve C paketleri bu sırayla, hücrelerine girince alınsın. Sırası gelmeyen
+paketin hücresinden geçmek onu toplamasın. Üçü alındıktan sonra sevk noktasına
+girince teslim tamamlanmış olsun. Geçersiz hareket adım veya geçmiş eklemesin.
+
+Ok tuşları ve ekrandaki dört yön düğmesi aynı işi yapsın. Geri Al son geçerli
+hareketi, paket ve teslim durumuyla birlikte geri alsın. Sıfırla tüm durumu
+başlangıca döndürsün. Başlangıçtaki en az teslim adımını hesaplayıp göster.
+Hamle sayacı, sıradaki paket ve teslim durumu ekranda Türkçe görünsün.
+
+390x844 ve 1280x720 görünümde taşmasın; yön düğmeleri en az 44x44 CSS piksel olsun.
+Sade, okunur ve renk dışında da işaretlerle anlaşılır bir tasarım kullan.
+
+Tekrarlanabilir kontrol için window.__duel nesnesini ekle:
+step("up"|"down"|"left"|"right"), undo(), reset(), state().
+state() kopya nesne döndürsün:
+{x, y, picked:["A",...], steps, delivered, optimalSteps}.
+Bu durum ekrandaki oyunla aynı olsun. Yalnız tamamlanmış index.html teslim et.

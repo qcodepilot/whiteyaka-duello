@@ -5,7 +5,7 @@ import asyncio, json, pathlib
 from playwright.async_api import async_playwright
 
 BASE = pathlib.Path(__file__).resolve().parent
-DUEL = pathlib.Path(r"C:\White Yaka\docs\creative-lab\duels\2026-11-10_kargo-oyunu")
+DUEL = BASE
 OUT = BASE / "d2-rec"; OUT.mkdir(exist_ok=True)
 TESTS = json.loads((DUEL / "duel-warehouse-tests.json").read_text(encoding="utf-8"))["test_cases"]
 ROUTE = json.loads((DUEL / "duel-warehouse-oracle.json").read_text(encoding="utf-8"))["valid_route"]

@@ -1,0 +1,44 @@
+[
+ {
+  "side": "gpt",
+  "requests": [],
+  "console": [],
+  "text": "Tahsilat Panosu\n\nFatura durumunuzu tek ekranda izleyin.\n\nGüncel görünüm\nToplam Fatura\n31.500 TL\nTahsil Edilen\n12.500 TL\nAçık Toplam\n19.000 TL\nGeciken\n12.300 TL\nMüşteri bazında fatura tutarları\nDuruma göre filtrele\nTüm durumlar\nÖdendi\nAçık\nGecikti\nAtlas\n12.500 TL · Ödendi\nDelta\n8.400 TL · Gecikti\nNova\n6.700 TL · Açık\nPeri\n3.900 TL · Gecikti\nTüm faturalar\nFiltre seçiminize göre güncellenen fatura listesi\nMÜŞTERİ\tTUTAR\tDURUM\nAtlas\t12.500 TL\tÖdendi\nDelta\t8.400 TL\tGecikti\nNova\t6.700 TL\tAçık\nPeri\t3.900 TL\tGecikti",
+  "options": [
+   [
+    "all",
+    "Tüm durumlar"
+   ],
+   [
+    "paid",
+    "Ödendi"
+   ],
+   [
+    "open",
+    "Açık"
+   ],
+   [
+    "late",
+    "Gecikti"
+   ]
+  ],
+  "filterHow": "select",
+  "visibleRowsAfterFilter": [
+   "Delta 8.400 TL Gecikti",
+   "Peri 3.900 TL Gecikti"
+  ],
+  "scrollWidth320": 320
+ },
+ {
+  "side": "claude",
+  "requests": [],
+  "console": [],
+  "text": "Tahsilat Panosu\n\nDört müşterinin fatura ve tahsilat durumu\n\nÖzet\nTOPLAM FATURA\n31.500 TL\n4 fatura\nTAHSİL EDİLEN\n12.500 TL\n%40 tahsil oranı\nAÇIK TOPLAM\n19.000 TL\nAçık + geciken\nGECİKEN\n12.300 TL\n2 fatura vadesi geçti\nDurum filtresi\n\nGrafik ve tablo seçilen duruma göre güncellenir.\n\nFatura durumuna göre filtrele\nTümü\n4\nÖdendi\n1\nAçık\n1\nGecikti\n2\nMüşteri bazında fatura tutarı\n\nÇubuk uzunluğu en yüksek faturaya (12.500 TL) göre ölçeklenir.\n\nAtlas\n12.500 TL\nÖdendi\nDelta\n8.400 TL\nGecikti\nNova\n6.700 TL\nAçık\nPeri\n3.900 TL\nGecikti\nÖdendi\nAçık\nGecikti\nTüm faturalar\nFatura listesi — filtre: Tüm durumlar\nMÜŞTERİ\tTUTAR\tDURUM\nAtlas\t12.500 TL\tÖdendi\nDelta\t8.400 TL\tGecikti\nNova\t6.700 TL\tAçık\nPeri\t3.900 TL\tGecikti\nGösterilen toplam\t31.500 TL\t4 fatura\n\nTüm durumlar: 4 fatura, toplam 31.500 TL.",
+  "filterHow": "button",
+  "visibleRowsAfterFilter": [
+   "Delta 8.400 TL Gecikti",
+   "Peri 3.900 TL Gecikti"
+  ],
+  "scrollWidth320": 320
+ }
+]

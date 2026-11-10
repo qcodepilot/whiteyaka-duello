@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tahsilat Panosu</title>
+<style>
+:root{
+  --bg:#f5f4f0;--surface:#ffffff;--ink:#1c1d21;--muted:#62656e;--line:#e3e1da;
+  --paid:#1f7a4d;--paid-bg:#e3f3ea;
+  --late:#b4321f;--late-bg:#fbe7e3;
+  --open:#a3640a;--open-bg:#fbf0dc;
+  --accent:#23395d;--focus:#2f6fde;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121317;--surface:#1b1d22;--ink:#ecebe6;--muted:#a3a6ae;--line:#2c2f36;
+    --paid:#4cc38a;--paid-bg:#173326;
+    --late:#ff7a63;--late-bg:#3a1c17;
+    --open:#f0b44c;--open-bg:#372a12;
+    --accent:#9fb7e0;--focus:#7fa8ff;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.45}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 48px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px}
+h1{font-size:clamp(1.4rem,3.2vw,1.9rem);margin:0;letter-spacing:-.01em}
+.sub{margin:4px 0 0;color:var(--muted);font-size:.95rem}
+h2{font-size:1.05rem;margin:0 0 4px}
+.section-sub{margin:0 0 16px;color:var(--muted);font-size:.88rem}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-top:18px}
+
+/* KPI kartları */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0;padding:0;list-style:none}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 16px 14px;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--k,var(--accent))}
+.kpi .label{font-size:.82rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.kpi .value{font-size:clamp(1.3rem,2.6vw,1.75rem);font-weight:750;margin-top:6px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.kpi .note{font-size:.8rem;color:var(--muted);margin-top:2px}
+.kpi.total{--k:var(--accent)}
+.kpi.paid{--k:var(--paid)}
+.kpi.open{--k:var(--open)}
+.kpi.late{--k:var(--late)}
+
+/* Filtre */
+.filter{display:flex;flex-wrap:wrap;gap:8px;border:0;margin:0;padding:0}
+.filter legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.filter input{position:absolute;opacity:0;pointer-events:none}
+.filter label{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--line);
+  border-radius:999px;background:var(--surface);cursor:pointer;font-size:.9rem;font-weight:600;color:var(--ink);
+  min-height:40px;user-select:none}
+.filter label .count{font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+.filter input:checked + label{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.filter input:checked + label .count{color:inherit;opacity:.75}
+.filter input:focus-visible + label{outline:3px solid var(--focus);outline-offset:2px}
+
+/* Grafik */
+.chart{display:grid;gap:14px}
+.bar-row{display:grid;grid-template-columns:76px 1fr 104px;align-items:center;gap:12px;transition:opacity .2s}
+.bar-row.dim{opacity:.25}
+.bar-name{font-weight:650}
+.bar-track{width:100%;height:30px;display:block}
+.bar-track .bg{fill:var(--line);opacity:.55}
+.bar-amount{text-align:right;font-variant-numeric:tabular-nums;font-weight:650;white-space:nowrap}
+.bar-amount small{display:block;font-weight:500;font-size:.78rem}
+.paid-c{fill:var(--paid);color:var(--paid)}
+.late-c{fill:var(--late);color:var(--late)}
+.open-c{fill:var(--open);color:var(--open)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;font-size:.85rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.sw.paid{background:var(--paid)}.sw.late{background:var(--late)}.sw.open{background:var(--open)}
+
+/* Tablo */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+caption{text-align:left;color:var(--muted);font-size:.85rem;padding-bottom:10px}
+th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left}
+thead th{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr[hidden]{display:none}
+tfoot td,tfoot th{font-weight:750;border-bottom:0;border-top:2px solid var(--line)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.badge.paid{color:var(--paid);background:var(--paid-bg)}
+.badge.late{color:var(--late);background:var(--late-bg)}
+.badge.open{color:var(--open);background:var(--open-bg)}
+.empty{padding:16px 10px;color:var(--muted);text-align:center}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+@media (max-width:820px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:520px){
+  .panel{padding:16px}
+  .bar-row{grid-template-columns:1fr auto;grid-template-areas:"name amount" "bar bar";gap:6px 10px}
+  .bar-name{grid-area:name}.bar-amount{grid-area:amount}.bar-track{grid-area:bar;height:22px}
+  .bar-amount small{display:inline;margin-left:6px}
+  th,td{padding:10px 8px}
+}
+@media (max-width:360px){
+  .kpis{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:no-preference){
+  .bar-fill{transition:width .5s ease}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Tahsilat Panosu</h1>
+      <p class="sub">Dört müşterinin fatura ve tahsilat durumu</p>
+    </div>
+  </header>
+
+  <section aria-labelledby="ozet-baslik">
+    <h2 id="ozet-baslik" class="sr-only">Özet</h2>
+    <ul class="kpis" id="kpis"></ul>
+  </section>
+
+  <section class="panel" aria-labelledby="filtre-baslik">
+    <h2 id="filtre-baslik">Durum filtresi</h2>
+    <p class="section-sub">Grafik ve tablo seçilen duruma göre güncellenir.</p>
+    <fieldset class="filter" id="filter">
+      <legend>Fatura durumuna göre filtrele</legend>
+    </fieldset>
+  </section>
+
+  <section class="panel" aria-labelledby="grafik-baslik">
+    <h2 id="grafik-baslik">Müşteri bazında fatura tutarı</h2>
+    <p class="section-sub">Çubuk uzunluğu en yüksek faturaya (12.500 TL) göre ölçeklenir.</p>
+    <div class="chart" id="chart" role="list"></div>
+    <div class="legend" aria-hidden="true">
+      <span><i class="sw paid"></i>Ödendi</span>
+      <span><i class="sw open"></i>Açık</span>
+      <span><i class="sw late"></i>Gecikti</span>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="tablo-baslik">
+    <h2 id="tablo-baslik">Tüm faturalar</h2>
+    <div class="table-wrap">
+      <table>
+        <caption id="table-caption">Müşteri, tutar ve durum bilgisiyle fatura listesi</caption>
+        <thead>
+          <tr>
+            <th scope="col">Müşteri</th>
+            <th scope="col" class="num">Tutar</th>
+            <th scope="col">Durum</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Gösterilen toplam</th>
+            <td class="num" id="foot-total"></td>
+            <td id="foot-count"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="sr-only" aria-live="polite" id="live"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var invoices = [
+    {customer:"Atlas", amount:12500, status:"paid"},
+    {customer:"Delta", amount:8400,  status:"late"},
+    {customer:"Nova",  amount:6700,  status:"open"},
+    {customer:"Peri",  amount:3900,  status:"late"}
+  ];
+  var LABEL = {paid:"Ödendi", late:"Gecikti", open:"Açık"};
+  var fmt = function(n){ return n.toLocaleString("tr-TR") + " TL"; };
+  // toLocaleString yerel ayarı desteklemezse noktalı biçim için yedek
+  if ((12500).toLocaleString("tr-TR") !== "12.500") {
+    fmt = function(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " TL"; };
+  }
+  function sum(list){ return list.reduce(function(a,i){ return a + i.amount; }, 0); }
+  function by(s){ return invoices.filter(function(i){ return i.status === s; }); }
+
+  // KPI hesapları
+  var total = sum(invoices);
+  var paid = sum(by("paid"));
+  var openTotal = total - paid;          // ödenmemiş her şey: açık + geciken
+  var late = sum(by("late"));
+  var kpis = [
+    {cls:"total", label:"Toplam Fatura", value:total, note:invoices.length + " fatura"},
+    {cls:"paid",  label:"Tahsil Edilen", value:paid, note:"%" + Math.round(paid/total*100) + " tahsil oranı"},
+    {cls:"open",  label:"Açık Toplam",   value:openTotal, note:"Açık + geciken"},
+    {cls:"late",  label:"Geciken",       value:late, note:by("late").length + " fatura vadesi geçti"}
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(function(k){
+    return '<li class="kpi '+k.cls+'"><div class="label">'+k.label+'</div>'+
+      '<div class="value">'+fmt(k.value)+'</div><div class="note">'+k.note+'</div></li>';
+  }).join("");
+
+  // Filtre
+  var filters = [
+    {v:"all", t:"Tümü", c:invoices.length},
+    {v:"paid", t:"Ödendi", c:by("paid").length},
+    {v:"open", t:"Açık", c:by("open").length},
+    {v:"late", t:"Gecikti", c:by("late").length}
+  ];
+  var fs = document.getElementById("filter");
+  filters.forEach(function(f, idx){
+    var id = "f-" + f.v;
+    var input = document.createElement("input");
+    input.type = "radio"; input.name = "status"; input.id = id; input.value = f.v;
+    if (idx === 0) input.checked = true;
+    var label = document.createElement("label");
+    label.htmlFor = id;
+    label.innerHTML = f.t + ' <span class="count">' + f.c + '</span>';
+    fs.appendChild(input); fs.appendChild(label);
+  });
+
+  // Grafik (SVG çubuklar)
+  var max = Math.max.apply(null, invoices.map(function(i){ return i.amount; }));
+  var chart = document.getElementById("chart");
+  chart.innerHTML = invoices.map(function(i){
+    var pct = (i.amount / max * 100).toFixed(2);
+    return '<div class="bar-row" role="listitem" data-status="'+i.status+'" '+
+      'aria-label="'+i.customer+', '+fmt(i.amount)+', '+LABEL[i.status]+'">'+
+      '<span class="bar-name" aria-hidden="true">'+i.customer+'</span>'+
+      '<svg class="bar-track" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true" focusable="false">'+
+        '<rect class="bg" x="0" y="0" width="100" height="10" rx="1.2"></rect>'+
+        '<rect class="bar-fill '+i.status+'-c" x="0" y="0" width="'+pct+'" height="10" rx="1.2"></rect>'+
+      '</svg>'+
+      '<span class="bar-amount" aria-hidden="true">'+fmt(i.amount)+'<small class="'+i.status+'-c">'+LABEL[i.status]+'</small></span>'+
+    '</div>';
+  }).join("");
+
+  // Tablo
+  var tbody = document.getElementById("tbody");
+  tbody.innerHTML = invoices.map(function(i){
+    return '<tr data-status="'+i.status+'"><th scope="row">'+i.customer+'</th>'+
+      '<td class="num">'+fmt(i.amount)+'</td>'+
+      '<td><span class="badge '+i.status+'">'+LABEL[i.status]+'</span></td></tr>';
+  }).join("") + '<tr class="empty-row" hidden><td colspan="3" class="empty">Bu durumda fatura yok.</td></tr>';
+
+  function apply(v){
+    var shown = v === "all" ? invoices : by(v);
+    Array.prototype.forEach.call(tbody.querySelectorAll("tr[data-status]"), function(tr){
+      tr.hidden = !(v === "all" || tr.getAttribute("data-status") === v);
+    });
+    tbody.querySelector(".empty-row").hidden = shown.length > 0;
+    Array.prototype.forEach.call(chart.querySelectorAll(".bar-row"), function(r){
+      r.classList.toggle("dim", !(v === "all" || r.getAttribute("data-status") === v));
+    });
+    document.getElementById("foot-total").textContent = fmt(sum(shown));
+    document.getElementById("foot-count").textContent = shown.length + " fatura";
+    var name = v === "all" ? "Tüm durumlar" : LABEL[v];
+    document.getElementById("table-caption").textContent =
+      "Fatura listesi — filtre: " + name;
+    document.getElementById("live").textContent =
+      name + ": " + shown.length + " fatura, toplam " + fmt(sum(shown)) + ".";
+  }
+  fs.addEventListener("change", function(e){ if (e.target.name === "status") apply(e.target.value); });
+  apply("all");
+})();
+</script>
+</body>
+</html>

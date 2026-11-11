@@ -8,6 +8,8 @@ istem, modeller koşulmadan önce yazılan ölçütler, iki modelin çıktısı 
 | 1 | 9 Kasım 2026 | Tek istemle tahsilat panosu (GPT-5.6 Terra – Claude Opus 5.5) | Berabere (4/4 – 4/4) | [2026-11-09_tahsilat-panosu](2026-11-09_tahsilat-panosu/) |
 | 2 | 10 Kasım 2026 | Tek istemle kargo toplama mini oyunu (GPT-6.1 Sol – Claude Opus 5.5) | Berabere (100 – 100) | [2026-11-10_kargo-oyunu](2026-11-10_kargo-oyunu/) |
 
+Ayrıca "ARAÇ" bölümlerinin ham kayıtları: [ARAÇ #2 · yt-dlp (11 Kasım 2026)](2026-11-11_arac-2-yt-dlp/).
+
 ## Bir klasörde neler var
 
 - `prompt.txt`: iki modele verilen istem (aynı metin, tek deneme)

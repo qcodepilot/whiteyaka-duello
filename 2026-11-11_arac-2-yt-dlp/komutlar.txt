@@ -1,0 +1,3 @@
+yt-dlp https://download.blender.org/peach/trailer/trailer_iphone.m4v
+yt-dlp -x --audio-format mp3 -k https://download.blender.org/peach/trailer/trailer_iphone.m4v
+dir /b

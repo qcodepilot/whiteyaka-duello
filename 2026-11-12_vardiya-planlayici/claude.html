@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vardiya Planlayıcı</title>
+<style>
+:root{
+  --bg:#f5f6f8;--card:#fff;--ink:#1d2330;--muted:#5b6475;--line:#d9dde4;
+  --accent:#1f5fd1;--accent-ink:#fff;--ok:#1e7a3c;--ok-bg:#e5f5ea;--bad:#b42318;--bad-bg:#fdecea;
+  --warn:#8a5a00;--warn-bg:#fff4dc;
+  --p1:#d8e8ff;--p1b:#2a62c9;--p2:#ffe1d1;--p2b:#c2531b;--p3:#dcf3df;--p3b:#2a7c3a;--p4:#efe1fb;--p4b:#7b3fb0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+header h1{margin:0 0 4px;font-size:1.5rem}
+.badge{display:inline-block;background:var(--warn-bg);color:var(--warn);border:1px solid #f0d9a8;border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:600}
+.note{color:var(--muted);font-size:.85rem;margin:6px 0 0}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:14px}
+h2{font-size:1.1rem;margin:0 0 10px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;white-space:nowrap}
+th{background:#eef1f5;font-weight:600}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+button{font:inherit;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:8px 14px;cursor:pointer;min-height:40px}
+button.secondary{background:#fff;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible{outline:3px solid #f2b705;outline-offset:2px}
+.status{margin-top:12px;padding:10px 12px;border-radius:8px;font-weight:600}
+.status.ok{background:var(--ok-bg);color:var(--ok)}
+.status.bad{background:var(--bad-bg);color:var(--bad)}
+.status.info{background:#eef1f5;color:var(--muted)}
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.day{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fafbfc}
+.day h3{margin:0;padding:8px 10px;background:#eef1f5;font-size:1rem}
+.shift{padding:8px 10px;border-top:1px solid var(--line);min-height:120px}
+.shift-head{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
+.shift-name{font-weight:600}
+.shift-time{color:var(--muted);font-size:.8rem}
+.dem{display:flex;align-items:center;gap:6px;margin:6px 0;font-size:.85rem}
+.dem input{width:56px;padding:4px 6px;font:inherit;border:1px solid var(--line);border-radius:6px}
+.dem input.invalid{border-color:var(--bad);background:var(--bad-bg)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;min-height:28px}
+.chip{border-radius:6px;padding:3px 8px;font-weight:700;font-size:.85rem;border-left:4px solid}
+.chip.P1{background:var(--p1);border-color:var(--p1b)}
+.chip.P2{background:var(--p2);border-color:var(--p2b)}
+.chip.P3{background:var(--p3);border-color:var(--p3b)}
+.chip.P4{background:var(--p4);border-color:var(--p4b)}
+.empty{color:var(--muted);font-size:.85rem}
+.cover{font-size:.78rem;margin-top:4px;font-weight:600}
+.cover.ok{color:var(--ok)}.cover.bad{color:var(--bad)}.cover.na{color:var(--muted)}
+.shift.filled{background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+footer{color:var(--muted);font-size:.8rem;margin:16px 0}
+@media (max-width:900px){.week{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media (max-width:560px){
+  .wrap{padding:16px}
+  .week{grid-template-columns:1fr}
+  .shift{min-height:0}
+  .day{display:grid;grid-template-columns:1fr 1fr}
+  .day h3{grid-column:1/-1}
+  .day .shift+.shift{border-left:1px solid var(--line)}
+  th,td{padding:5px 6px}
+  table{font-size:.82rem}
+  button{flex:1 1 auto}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Küçük İşletme Vardiya Planlayıcı</h1>
+  <span class="badge">Sentetik örnek</span>
+  <p class="note">Bu plan bir çalışma hukuku uygunluk sistemi değildir; yalnız verilen sentetik kuralları çözer.</p>
+</header>
+
+<section aria-labelledby="h-input">
+  <h2 id="h-input">Girdi: çalışanlar</h2>
+  <div class="tablewrap">
+    <table>
+      <caption class="note" style="text-align:left;caption-side:bottom">S = 09:00–13:00, A = 13:00–17:00 (her biri 4 saat). S vardiyasını yalnız açılış yetkisi olan alabilir; kişi günde en fazla 1 vardiya alır.</caption>
+      <thead><tr><th scope="col">Çalışan</th><th scope="col">Açılış yetkisi</th><th scope="col">Haftalık azami vardiya</th><th scope="col">Uygun olmadığı</th></tr></thead>
+      <tbody id="emp-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<section aria-labelledby="h-week">
+  <h2 id="h-week">Haftalık çizelge ve talep</h2>
+  <p class="note" style="margin-top:0">Her vardiyanın talebi 0–3 arası bir tam sayıdır; talep kadar farklı uygun çalışan atanır.</p>
+  <div class="toolbar">
+    <button type="button" id="btn-plan">Planı oluştur</button>
+    <button type="button" id="btn-reset" class="secondary">Talebi varsayılana döndür</button>
+    <button type="button" id="btn-csv" class="secondary" disabled>CSV indir</button>
+  </div>
+  <div id="status" class="status info" role="status" aria-live="polite">Henüz plan oluşturulmadı. Çizelge boş.</div>
+  <div class="week" id="week" style="margin-top:12px"></div>
+</section>
+
+<section aria-labelledby="h-sum">
+  <h2 id="h-sum">Özet</h2>
+  <div class="grid2">
+    <div>
+      <h3 style="font-size:1rem;margin:0 0 6px">Çalışan başına</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th scope="col">Çalışan</th><th scope="col">Vardiya</th><th scope="col">Saat</th><th scope="col">Azami</th></tr></thead>
+        <tbody id="emp-sum"></tbody>
+      </table></div>
+    </div>
+    <div>
+      <h3 style="font-size:1rem;margin:0 0 6px">Talep karşılama</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th scope="col">Gün</th><th scope="col">Vardiya</th><th scope="col">Talep</th><th scope="col">Atanan</th><th scope="col">Durum</th></tr></thead>
+        <tbody id="dem-sum"></tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+<footer>Sentetik örnek · Tüm veriler yereldir; ağ isteği yapılmaz.</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+var DAYS=["Pzt","Sal","Çar","Per","Cum"];
+var SHIFTS=[{id:"S",start:"09:00",end:"13:00",hours:4},{id:"A",start:"13:00",end:"17:00",hours:4}];
+var EMPS=[
+  {id:"P1",opener:true,max:3,unavail:["Pzt-S"]},
+  {id:"P2",opener:true,max:3,unavail:["Sal-A"]},
+  {id:"P3",opener:false,max:3,unavail:["Çar-S"]},
+  {id:"P4",opener:false,max:3,unavail:["Per-A"]}
+];
+var DEFAULT_DEMAND=1;
+var demand={}; // key "Gün-V" -> int
+var plan=null;  // key -> [empIds]
+var planDemand=null;
+var lastResult="none"; // none | ok | infeasible | stale | invalid
+
+function key(d,s){return d+"-"+s;}
+function resetDemand(){DAYS.forEach(function(d){SHIFTS.forEach(function(s){demand[key(d,s.id)]=DEFAULT_DEMAND;});});}
+
+function canWork(e,d,s){
+  if(s==="S"&&!e.opener)return false;
+  if(e.unavail.indexOf(key(d,s))!==-1)return false;
+  return true;
+}
+function combos(arr,k){
+  var out=[];
+  (function rec(start,cur){
+    if(cur.length===k){out.push(cur.slice());return;}
+    for(var i=start;i<arr.length;i++){cur.push(arr[i]);rec(i+1,cur);cur.pop();}
+  })(0,[]);
+  return out;
+}
+// Solver: per-day DFS, minimise spread (max-min of shift counts), deterministic.
+function solve(dem){
+  var n=EMPS.length,total=0;
+  DAYS.forEach(function(d){SHIFTS.forEach(function(s){total+=dem[key(d,s.id)];});});
+  var lowerBound=(total%n===0)?0:1;
+  // precompute day options
+  var dayOpts=DAYS.map(function(d){
+    var sIdx=[],aIdx=[];
+    EMPS.forEach(function(e,i){if(canWork(e,d,"S"))sIdx.push(i);if(canWork(e,d,"A"))aIdx.push(i);});
+    var opts=[];
+    combos(sIdx,dem[key(d,"S")]).forEach(function(sc){
+      combos(aIdx,dem[key(d,"A")]).forEach(function(ac){
+        for(var i=0;i<ac.length;i++)if(sc.indexOf(ac[i])!==-1)return;
+        opts.push({S:sc,A:ac});
+      });
+    });
+    return opts;
+  });
+  for(var i=0;i<dayOpts.length;i++)if(dayOpts[i].length===0)return null;
+  var counts=new Array(n).fill(0),choice=[],best=null,bestSpread=Infinity;
+  var remainingDemand=[];var acc=0;
+  for(var j=DAYS.length-1;j>=0;j--){remainingDemand[j]=acc;acc+=dem[key(DAYS[j],"S")]+dem[key(DAYS[j],"A")];}
+  function dfs(di){
+    if(bestSpread<=lowerBound)return;
+    if(di===DAYS.length){
+      var mx=Math.max.apply(null,counts),mn=Math.min.apply(null,counts),sp=mx-mn;
+      if(sp<bestSpread){bestSpread=sp;best=choice.slice();}
+      return;
+    }
+    var opts=dayOpts[di];
+    for(var o=0;o<opts.length;o++){
+      var op=opts[o],ids=op.S.concat(op.A),ok=true,k;
+      for(k=0;k<ids.length;k++){counts[ids[k]]++;if(counts[ids[k]]>EMPS[ids[k]].max)ok=false;}
+      if(ok){
+        // bound: max so far minus best achievable min
+        var mx=Math.max.apply(null,counts),rem=remainingDemand[di],deficit=0;
+        for(k=0;k<n;k++){if(counts[k]<mx)deficit+=0;}
+        var mnPossible=Math.min.apply(null,counts.map(function(c){return c;}));
+        // min can rise at most by rem spread over workers; optimistic estimate
+        var sorted=counts.slice().sort(function(a,b){return a-b;}),r=rem,lvl=sorted[0];
+        for(k=0;k<n&&r>0;k++){}
+        // water-fill optimistic min
+        var s2=sorted.slice();r=rem;
+        while(r>0){s2.sort(function(a,b){return a-b;});s2[0]++;r--;}
+        var optMin=Math.min.apply(null,s2);
+        if(mx-optMin<bestSpread){choice.push(op);dfs(di+1);choice.pop();}
+      }
+      for(k=0;k<ids.length;k++)counts[ids[k]]--;
+      if(bestSpread<=lowerBound)return;
+    }
+  }
+  dfs(0);
+  if(!best)return null;
+  var p={};
+  DAYS.forEach(function(d,di){
+    p[key(d,"S")]=best[di].S.map(function(i){return EMPS[i].id;});
+    p[key(d,"A")]=best[di].A.map(function(i){return EMPS[i].id;});
+  });
+  return p;
+}
+
+function validateDemand(){
+  var ok=true;
+  DAYS.forEach(function(d){SHIFTS.forEach(function(s){
+    var inp=document.getElementById("dem-"+key(d,s.id));
+    var raw=inp.value.trim(),v=Number(raw);
+    var valid=raw!==""&&/^\d+$/.test(raw)&&v>=0&&v<=3;
+    inp.classList.toggle("invalid",!valid);
+    inp.setAttribute("aria-invalid",valid?"false":"true");
+    if(valid)demand[key(d,s.id)]=v;else ok=false;
+  });});
+  return ok;
+}
+
+function sameDemand(a,b){if(!a||!b)return false;for(var k in a)if(a[k]!==b[k])return false;return true;}
+
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+
+function renderEmployees(){
+  var tb=document.getElementById("emp-body");tb.innerHTML="";
+  EMPS.forEach(function(e){
+    var tr=el("tr");
+    var td=el("td");td.appendChild(el("span","chip "+e.id,e.id));tr.appendChild(td);
+    tr.appendChild(el("td",null,e.opener?"evet":"hayır"));
+    tr.appendChild(el("td",null,String(e.max)));
+    tr.appendChild(el("td",null,e.unavail.join(", ")));
+    tb.appendChild(tr);
+  });
+}
+
+function buildWeek(){
+  var w=document.getElementById("week");w.innerHTML="";
+  DAYS.forEach(function(d){
+    var day=el("div","day");day.setAttribute("role","group");day.setAttribute("aria-label",d+" günü");
+    day.appendChild(el("h3",null,d));
+    SHIFTS.forEach(function(s){
+      var k=key(d,s.id);
+      var sh=el("div","shift");sh.id="cell-"+k;
+      var head=el("div","shift-head");
+      head.appendChild(el("span","shift-name",s.id+" vardiyası"));
+      head.appendChild(el("span","shift-time",s.start+"–"+s.end));
+      sh.appendChild(head);
+      var dem=el("div","dem");
+      var lab=el("label",null,"Talep");lab.setAttribute("for","dem-"+k);
+      var inp=document.createElement("input");
+      inp.type="number";inp.min="0";inp.max="3";inp.step="1";inp.inputMode="numeric";
+      inp.id="dem-"+k;inp.value=demand[k];
+      inp.setAttribute("aria-label",d+" "+s.id+" vardiyası talebi (0–3)");
+      inp.addEventListener("input",onDemandChange);
+      dem.appendChild(lab);dem.appendChild(inp);
+      sh.appendChild(dem);
+      sh.appendChild(el("div","chips"));
+      sh.appendChild(el("div","cover na",""));
+      day.appendChild(sh);
+    });
+    w.appendChild(day);
+  });
+}
+
+function renderPlan(){
+  var showPlan=(lastResult==="ok"&&plan);
+  DAYS.forEach(function(d){SHIFTS.forEach(function(s){
+    var k=key(d,s.id),cell=document.getElementById("cell-"+k);
+    var chips=cell.querySelector(".chips"),cov=cell.querySelector(".cover");
+    chips.innerHTML="";
+    cell.classList.toggle("filled",!!showPlan);
+    if(showPlan){
+      var list=plan[k];
+      if(list.length===0)chips.appendChild(el("span","empty","Atama yok (talep 0)"));
+      list.forEach(function(id){chips.appendChild(el("span","chip "+id,id));});
+      var dm=planDemand[k];
+      cov.className="cover "+(list.length>=dm?"ok":"bad");
+      cov.textContent=list.length+"/"+dm+" karşılandı";
+    }else{
+      chips.appendChild(el("span","empty","—"));
+      cov.className="cover na";cov.textContent="";
+    }
+  });});
+
+  var es=document.getElementById("emp-sum");es.innerHTML="";
+  EMPS.forEach(function(e){
+    var c=0;
+    if(showPlan)for(var k in plan)if(plan[k].indexOf(e.id)!==-1)c++;
+    var tr=el("tr");var td=el("td");td.appendChild(el("span","chip "+e.id,e.id));tr.appendChild(td);
+    tr.appendChild(el("td",null,showPlan?String(c):"—"));
+    tr.appendChild(el("td",null,showPlan?(c*4)+" sa":"—"));
+    tr.appendChild(el("td",null,String(e.max)));
+    es.appendChild(tr);
+  });
+
+  var ds=document.getElementById("dem-sum");ds.innerHTML="";
+  DAYS.forEach(function(d){SHIFTS.forEach(function(s){
+    var k=key(d,s.id),tr=el("tr");
+    tr.appendChild(el("td",null,d));tr.appendChild(el("td",null,s.id));
+    tr.appendChild(el("td",null,String(demand[k]!=null?demand[k]:"?")));
+    if(showPlan){
+      var n=plan[k].length,ok=n>=planDemand[k];
+      tr.appendChild(el("td",null,n?plan[k].join(", "):"—"));
+      var st=el("td",null,ok?"Karşılandı":"Eksik");st.style.color=ok?"var(--ok)":"var(--bad)";st.style.fontWeight="600";
+      tr.appendChild(st);
+    }else{
+      tr.appendChild(el("td",null,"—"));
+      var t=el("td",null,lastResult==="infeasible"?"Uygun plan yok":"Plan yok");
+      if(lastResult==="infeasible"){t.style.color="var(--bad)";t.style.fontWeight="600";}
+      tr.appendChild(t);
+    }
+    ds.appendChild(tr);
+  });});
+
+  document.getElementById("btn-csv").disabled=!showPlan;
+}
+
+function setStatus(cls,msg){var s=document.getElementById("status");s.className="status "+cls;s.textContent=msg;}
+
+function onDemandChange(){
+  var ok=validateDemand();
+  if(plan&&sameDemand(demand,planDemand)&&ok){lastResult="ok";renderPlan();setStatus("ok",planMessage());return;}
+  plan=null;planDemand=null;
+  if(!ok){lastResult="invalid";setStatus("bad","Geçersiz talep: her vardiya için 0, 1, 2 veya 3 girin.");}
+  else{lastResult="stale";setStatus("info","Talep değişti; önceki plan kaldırıldı. Yeni plan için \"Planı oluştur\" düğmesine basın.");}
+  renderPlan();
+}
+
+function planMessage(){
+  var cs=EMPS.map(function(e){var c=0;for(var k in plan)if(plan[k].indexOf(e.id)!==-1)c++;return c;});
+  var sp=Math.max.apply(null,cs)-Math.min.apply(null,cs);
+  return "Geçerli plan oluşturuldu: tüm talepler karşılandı. Çalışanlar arası vardiya farkı: "+sp+".";
+}
+
+function makePlan(){
+  if(!validateDemand()){plan=null;planDemand=null;lastResult="invalid";renderPlan();setStatus("bad","Geçersiz talep: her vardiya için 0, 1, 2 veya 3 girin. Plan oluşturulmadı.");return;}
+  var dem={};for(var k in demand)dem[k]=demand[k];
+  var p=solve(dem);
+  if(!p){
+    plan=null;planDemand=null;lastResult="infeasible";renderPlan();
+    setStatus("bad","Uygun plan yok: bu talepler kurallarla (açılış yetkisi, uygunluk, günde 1 vardiya, haftalık azami) karşılanamıyor. Çizelgede plan gösterilmiyor.");
+    return;
+  }
+  plan=p;planDemand=dem;lastResult="ok";renderPlan();setStatus("ok",planMessage());
+}
+
+function downloadCsv(){
+  if(lastResult!=="ok"||!plan)return;
+  var rows=["gun,vardiya,calisan,baslangic,bitis,saat"];
+  DAYS.forEach(function(d){SHIFTS.forEach(function(s){
+    plan[key(d,s.id)].forEach(function(id){rows.push([d,s.id,id,s.start,s.end,s.hours].join(","));});
+  });});
+  var blob=new Blob(["﻿"+rows.join("\r\n")+"\r\n"],{type:"text/csv;charset=utf-8"});
+  var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="vardiya-plani.csv";
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
+}
+
+document.getElementById("btn-plan").addEventListener("click",makePlan);
+document.getElementById("btn-csv").addEventListener("click",downloadCsv);
+document.getElementById("btn-reset").addEventListener("click",function(){
+  resetDemand();
+  DAYS.forEach(function(d){SHIFTS.forEach(function(s){var i=document.getElementById("dem-"+key(d,s.id));i.value=demand[key(d,s.id)];});});
+  onDemandChange();
+  if(lastResult!=="ok")setStatus("info","Talep varsayılana (her vardiya 1) döndü. Plan için \"Planı oluştur\" düğmesine basın.");
+});
+
+resetDemand();renderEmployees();buildWeek();renderPlan();
+})();
+</script>
+</body>
+</html>

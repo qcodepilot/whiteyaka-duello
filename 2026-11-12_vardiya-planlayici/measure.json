@@ -1,0 +1,386 @@
+{
+ "gpt": {
+  "side": "gpt",
+  "requests": [],
+  "console": [],
+  "bytes": 26423,
+  "synthetic": true,
+  "buttons": [
+   "Varsayılana dön",
+   "Planı oluştur",
+   "CSV indir"
+  ],
+  "inputs": [
+   {
+    "i": 0,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-0 {\"demand\":\"0\"} Talep : Pzt S vardiyası çalışan sayısı"
+   },
+   {
+    "i": 1,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-1 {\"demand\":\"1\"} Talep : Pzt A vardiyası çalışan sayısı"
+   },
+   {
+    "i": 2,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-2 {\"demand\":\"2\"} Talep : Sal S vardiyası çalışan sayısı"
+   },
+   {
+    "i": 3,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-3 {\"demand\":\"3\"} Talep : Sal A vardiyası çalışan sayısı"
+   },
+   {
+    "i": 4,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-4 {\"demand\":\"4\"} Talep : Çar S vardiyası çalışan sayısı"
+   },
+   {
+    "i": 5,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-5 {\"demand\":\"5\"} Talep : Çar A vardiyası çalışan sayısı"
+   },
+   {
+    "i": 6,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-6 {\"demand\":\"6\"} Talep : Per S vardiyası çalışan sayısı"
+   },
+   {
+    "i": 7,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-7 {\"demand\":\"7\"} Talep : Per A vardiyası çalışan sayısı"
+   },
+   {
+    "i": 8,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-8 {\"demand\":\"8\"} Talep : Cum S vardiyası çalışan sayısı"
+   },
+   {
+    "i": 9,
+    "tag": "SELECT",
+    "type": "select-one",
+    "val": "1",
+    "lab": "demand-9 {\"demand\":\"9\"} Talep : Cum A vardiyası çalışan sayısı"
+   }
+  ],
+  "genClick": true,
+  "planText": "vardiya\nKÜÇÜK EKİP, İYİ PLAN.\nHaftalık plan\n↗\nEKİP & UYGUNLUK\n4 kişi\nSentetik çalışan girdi verileri. Üst sınır haftalık vardiya sayısıdır.\nÇalışan\tAçılış\tÜst sınır\tUygun değil\nP1\tEvet\t3\tPzt-S\nP2\tEvet\t3\tSal-A\nP3\tHayır\t3\tÇar-S\nP4\tHayır\t3\tPer-A\n\nAçılış: S vardiyası yetkisi.\nS: 09:00–13:00 · A: 13:00–17:00\n\nPLANIN SINIRLARI\n✓\nKişi başına günde en fazla 1 vardiya\n✓\nHaftada en fazla 3 vardiya / 12 saat\n✓\nUygunluk ve açılış yetkisi kontrolü\n✓\nVarsayılan planda dengeli dağılım\nVeriler burada kalır.\n\nÇevrimdışı çalışır. Sunucuya veri göndermez. Sayfa yenilendiğinde başlangıca döner.\n\nÇalışma alanı\n/\nVardiya planlayıcı\nSentetik örnek\nİyi bir hafta, iyi bir plan.\n\nTalebini belirle, ekibine uygun haftalık çizelgeyi oluştur.\n\n Pazartesi — Cuma\nTOPLAM TALEP\n10kişi-vardiya\nPLANLANAN SÜRE\n40saat / hafta\nTALEP KARŞILAMA\n%100talebin tamamı\nHaftalık çizelge\n\nHer vardiya 4 saat. Talep, gereken çalışan sayısıdır.\n\nVarsayılana dön\nPlanı oluştur\nCSV indir\nPzt\nGÜN 1\nS · Sabah\n1/1\n09:00–13:00\nTalep\n: Pzt S vardiyası çalışan sayısı\n0\n1\n2\n3\nP2\nA · Öğleden sonra\n1/1\n13:00–17:00\nTalep\n: Pzt A vardiyası çalışan sayısı\n0\n1\n2\n3\nP1\nSal\nGÜN 2\nS · Sabah\n1/1\n09:00–13:00\nTalep\n: Sal S vardiyası çalışan sayısı\n0\n1\n2\n3\nP1\nA · Öğleden sonra\n1/1\n13:00–17:00\nTalep\n: Sal A vardiyası çalışan sayısı\n0\n1\n2\n3\nP3\nÇar\nGÜN 3\nS · Sabah\n1/1\n09:00–13:00\nTalep\n: Çar S vardiyası çalışan sayısı\n0\n1\n2\n3\nP1\nA · Öğleden sonra\n1/1\n13:00–17:00\nTalep\n: Çar A vardiyası çalışan sayısı\n0\n1\n2\n3\nP4\nPer\nGÜN 4\nS · Sabah\n1/1\n09:00–13:00\nTalep\n: Per S vardiyası çalışan sayısı\n0\n1\n2\n3\nP2\nA · Öğleden sonra\n1/1\n13:00–17:00\nTalep\n: Per A vardiyası çalışan sayısı\n0\n1\n2\n3\nP3\nCum\nGÜN 5\nS · Sabah\n1/1\n09:00–13:00\nTalep\n: Cum S vardiyası çalışan sayısı\n0\n1\n2\n3\nP2\nA · Öğleden sonra\n1/1\n13:00–17:00\nTalep\n: Cum A vardiyası çalışan sayısı\n0\n1\n2\n3\nP4\nP1\nP2\nP3\nP4\nS · Sabah   A · Öğleden sonra\nPlan hazır. Tüm talepler karşılandı.\n\nUygunluk, açılış yetkisi, günlük ve haftalık sınırlar sağlandı. Dağılım: 3 · 3 · 2 · 2 vardiya.\n\nEkibin haftası\nHaftalık kapasite · 12 kişi-vardiya\nP1\n12saat\n3 / 3 vardiya\nEn çok 3\nP2\n12saat\n3 / 3 vardiya\nEn çok 3\nP3\n8saat\n2 / 3 vardiya\nEn çok 3\nP4\n8saat\n2 / 3 vardiya\nEn çok 3\nBu plan bir çalışma hukuku uygunluk sistemi değildir; yalnız verilen sentetik kuralları çözer.\nYerel çalışma alanı · v1.0",
+  "csvDefaultRaw": "gün,vardiya,calisan,baslangic,bitis,saat\r\nPzt,S,P2,09:00,13:00,4\r\nPzt,A,P1,13:00,17:00,4\r\nSal,S,P1,09:00,13:00,4\r\nSal,A,P3,13:00,17:00,4\r\nÇar,S,P1,09:00,13:00,4\r\nÇar,A,P4,13:00,17:00,4\r\nPer,S,P2,09:00,13:00,4\r\nPer,A,P3,13:00,17:00,4\r\nCum,S,P2,09:00,13:00,4\r\nCum,A,P4,13:00,17:00,4\r\n",
+  "default": {
+   "rows": 10,
+   "coverAll1": false,
+   "hours": 40.0,
+   "unavail": 0,
+   "badOpener": 0,
+   "double": 4,
+   "counts": {
+    "P2": 3,
+    "P1": 3,
+    "P3": 2,
+    "P4": 2
+   },
+   "over3": 0,
+   "sorted": [
+    2,
+    2,
+    3,
+    3
+   ],
+   "allHours4": true,
+   "assign": [
+    "-A-P1",
+    "-A-P3",
+    "-A-P3",
+    "-A-P4",
+    "-A-P4",
+    "-S-P1",
+    "-S-P1",
+    "-S-P2",
+    "-S-P2",
+    "-S-P2"
+   ]
+  },
+  "csvHeader": "gün,vardiya,calisan,baslangic,bitis,saat",
+  "pztSIndex": 0,
+  "impossibleText": "vardiya\nKÜÇÜK EKİP, İYİ PLAN.\nHaftalık plan\n↗\nEKİP & UYGUNLUK\n4 kişi\nSentetik çalışan girdi verileri. Üst sınır haftalık vardiya sayısıdır.\nÇalışan\tAçılış\tÜst sınır\tUygun değil\nP1\tEvet\t3\tPzt-S\nP2\tEvet\t3\tSal-A\nP3\tHayır\t3\tÇar-S\nP4\tHayır\t3\tPer-A\n\nAçılış: S vardiyası yetkisi.\nS: 09:00–13:00 · A: 13:00–17:00\n\nPLANIN SINIRLARI\n✓\nKişi başına günde en fazla 1 vardiya\n✓\nHaftada en fazla 3 vardiya / 12 saat\n✓\nUygunluk ve açılış yetkisi kontrolü\n✓\nVarsayılan planda dengeli dağılım\nVeriler burada kalır.\n\nÇevrimdışı çalışır. Sunucuya veri göndermez. Sayfa yenilendiğinde başlangıca döner.\n\nÇalışma alanı\n/\nVardiya planlayıcı\nSentetik örnek\nİyi bir hafta, iyi bir plan.\n\nTalebini belirle, ekibine uygun haftalık çizelgeyi oluştur.\n\n Pazartesi — Cuma\nTOPLAM TALEP\n12kişi-vardiya\nPLANLANAN SÜRE\n—saat / hafta\nTALEP KARŞILAMA\n—plan bekleniyor\nHaftalık çizelge\n\nHer vardiya 4 saat. Talep, gereken çalışan sayısıdır.\n\nVarsayılana dön\nPlanı oluştur\nCSV indir\nPzt\nGÜN 1\nS · Sabah\n09:00–13:00\nTalep\n: Pzt S vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nA · Öğleden sonra\n13:00–17:00\nTalep\n: Pzt A vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nSal\nGÜN 2\nS · Sabah\n09:00–13:00\nTalep\n: Sal S vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nA · Öğleden sonra\n13:00–17:00\nTalep\n: Sal A vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nÇar\nGÜN 3\nS · Sabah\n09:00–13:00\nTalep\n: Çar S vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nA · Öğleden sonra\n13:00–17:00\nTalep\n: Çar A vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nPer\nGÜN 4\nS · Sabah\n09:00–13:00\nTalep\n: Per S vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nA · Öğleden sonra\n13:00–17:00\nTalep\n: Per A vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nCum\nGÜN 5\nS · Sabah\n09:00–13:00\nTalep\n: Cum S vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nA · Öğleden sonra\n13:00–17:00\nTalep\n: Cum A vardiyası çalışan sayısı\n0\n1\n2\n3\nHenüz atanmadı\nP1\nP2\nP3\nP4\nS · Sabah   A · Öğleden sonra\nUygun plan bulunamadı.\n\nPzt günü için talebi karşılayan uygun çalışan birleşimi yok. Açılış yetkisini, uygunluğu ve günde tek vardiya kuralını kontrol edin. Atama yapılmadı; CSV indirme kapalı.\n\nEkibin haftası\nHaftalık kapasite · 12 kişi-vardiya\nP1\n—saat\nAtama bekleniyor\nEn çok 3\nP2\n—saat\nAtama bekleniyor\nEn çok 3\nP3\n—saat\nAtama bekleniyor\nEn çok 3\nP4\n—saat\nAtama bekleniyor\nEn çok 3\nBu plan bir çalışma hukuku uygunluk sistemi değildir; yalnız verilen sentetik kuralları çözer.\nYerel çalışma alanı · v1.0",
+  "impossibleWarn": true,
+  "csvImpossibleRaw": "HATA Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"button\", name=re.compile(r\"csv\", re.IGNORECASE)).first\n    - locator resolved to <button disabled class=\"btn\" id=\"download\" type=\"button\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    58 × waiting for element to be visible, enabled and stable\n       - element is not enabled\n     - retrying click action\n       - waiting 500ms\n",
+  "impossibleCsvRows": null,
+  "resetClick": true,
+  "afterResetVal": "1",
+  "reset": {
+   "rows": 10,
+   "coverAll1": false,
+   "hours": 40.0,
+   "unavail": 0,
+   "badOpener": 0,
+   "double": 4,
+   "counts": {
+    "P2": 3,
+    "P1": 3,
+    "P3": 2,
+    "P4": 2
+   },
+   "over3": 0,
+   "sorted": [
+    2,
+    2,
+    3,
+    3
+   ],
+   "allHours4": true,
+   "assign": [
+    "-A-P1",
+    "-A-P3",
+    "-A-P3",
+    "-A-P4",
+    "-A-P4",
+    "-S-P1",
+    "-S-P1",
+    "-S-P2",
+    "-S-P2",
+    "-S-P2"
+   ]
+  },
+  "mobile": {
+   "sw": 390,
+   "cw": 390,
+   "bodySw": 390,
+   "buttons": [
+    {
+     "t": "Varsayılana dön",
+     "w": 115,
+     "h": 38,
+     "x": 34,
+     "right": 149
+    },
+    {
+     "t": "Planı oluştur",
+     "w": 109,
+     "h": 38,
+     "x": 155,
+     "right": 264
+    },
+    {
+     "t": "CSV indir",
+     "w": 86,
+     "h": 38,
+     "x": 270,
+     "right": 356
+    }
+   ]
+  },
+  "keyboardRows": 10
+ },
+ "claude": {
+  "side": "claude",
+  "requests": [],
+  "console": [],
+  "bytes": 17201,
+  "synthetic": true,
+  "buttons": [
+   "Planı oluştur",
+   "Talebi varsayılana döndür",
+   "CSV indir"
+  ],
+  "inputs": [
+   {
+    "i": 0,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Pzt S vardiyası talebi (0–3) dem-Pzt-S {} Talep"
+   },
+   {
+    "i": 1,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Pzt A vardiyası talebi (0–3) dem-Pzt-A {} Talep"
+   },
+   {
+    "i": 2,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Sal S vardiyası talebi (0–3) dem-Sal-S {} Talep"
+   },
+   {
+    "i": 3,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Sal A vardiyası talebi (0–3) dem-Sal-A {} Talep"
+   },
+   {
+    "i": 4,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Çar S vardiyası talebi (0–3) dem-Çar-S {} Talep"
+   },
+   {
+    "i": 5,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Çar A vardiyası talebi (0–3) dem-Çar-A {} Talep"
+   },
+   {
+    "i": 6,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Per S vardiyası talebi (0–3) dem-Per-S {} Talep"
+   },
+   {
+    "i": 7,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Per A vardiyası talebi (0–3) dem-Per-A {} Talep"
+   },
+   {
+    "i": 8,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Cum S vardiyası talebi (0–3) dem-Cum-S {} Talep"
+   },
+   {
+    "i": 9,
+    "tag": "INPUT",
+    "type": "number",
+    "val": "1",
+    "lab": "Cum A vardiyası talebi (0–3) dem-Cum-A {} Talep"
+   }
+  ],
+  "genClick": true,
+  "planText": "Küçük İşletme Vardiya Planlayıcı\nSentetik örnek\n\nBu plan bir çalışma hukuku uygunluk sistemi değildir; yalnız verilen sentetik kuralları çözer.\n\nGirdi: çalışanlar\nS = 09:00–13:00, A = 13:00–17:00 (her biri 4 saat). S vardiyasını yalnız açılış yetkisi olan alabilir; kişi günde en fazla 1 vardiya alır.\nÇalışan\tAçılış yetkisi\tHaftalık azami vardiya\tUygun olmadığı\nP1\tevet\t3\tPzt-S\nP2\tevet\t3\tSal-A\nP3\thayır\t3\tÇar-S\nP4\thayır\t3\tPer-A\nHaftalık çizelge ve talep\n\nHer vardiyanın talebi 0–3 arası bir tam sayıdır; talep kadar farklı uygun çalışan atanır.\n\nPlanı oluştur\nTalebi varsayılana döndür\nCSV indir\nGeçerli plan oluşturuldu: tüm talepler karşılandı. Çalışanlar arası vardiya farkı: 1.\nPzt\nS vardiyası\n09:00–13:00\nTalep\nP2\n1/1 karşılandı\nA vardiyası\n13:00–17:00\nTalep\nP1\n1/1 karşılandı\nSal\nS vardiyası\n09:00–13:00\nTalep\nP1\n1/1 karşılandı\nA vardiyası\n13:00–17:00\nTalep\nP3\n1/1 karşılandı\nÇar\nS vardiyası\n09:00–13:00\nTalep\nP1\n1/1 karşılandı\nA vardiyası\n13:00–17:00\nTalep\nP4\n1/1 karşılandı\nPer\nS vardiyası\n09:00–13:00\nTalep\nP2\n1/1 karşılandı\nA vardiyası\n13:00–17:00\nTalep\nP3\n1/1 karşılandı\nCum\nS vardiyası\n09:00–13:00\nTalep\nP2\n1/1 karşılandı\nA vardiyası\n13:00–17:00\nTalep\nP4\n1/1 karşılandı\nÖzet\nÇalışan başına\nÇalışan\tVardiya\tSaat\tAzami\nP1\t3\t12 sa\t3\nP2\t3\t12 sa\t3\nP3\t2\t8 sa\t3\nP4\t2\t8 sa\t3\nTalep karşılama\nGün\tVardiya\tTalep\tAtanan\tDurum\nPzt\tS\t1\tP2\tKarşılandı\nPzt\tA\t1\tP1\tKarşılandı\nSal\tS\t1\tP1\tKarşılandı\nSal\tA\t1\tP3\tKarşılandı\nÇar\tS\t1\tP1\tKarşılandı\nÇar\tA\t1\tP4\tKarşılandı\nPer\tS\t1\tP2\tKarşılandı\nPer\tA\t1\tP3\tKarşılandı\nCum\tS\t1\tP2\tKarşılandı\nCum\tA\t1\tP4\tKarşılandı\nSentetik örnek · Tüm veriler yereldir; ağ isteği yapılmaz.",
+  "csvDefaultRaw": "gun,vardiya,calisan,baslangic,bitis,saat\r\nPzt,S,P2,09:00,13:00,4\r\nPzt,A,P1,13:00,17:00,4\r\nSal,S,P1,09:00,13:00,4\r\nSal,A,P3,13:00,17:00,4\r\nÇar,S,P1,09:00,13:00,4\r\nÇar,A,P4,13:00,17:00,4\r\nPer,S,P2,09:00,13:00,4\r\nPer,A,P3,13:00,17:00,4\r\nCum,S,P2,09:00,13:00,4\r\nCum,A,P4,13:00,17:00,4\r\n",
+  "default": {
+   "rows": 10,
+   "coverAll1": true,
+   "hours": 40.0,
+   "unavail": 0,
+   "badOpener": 0,
+   "double": 0,
+   "counts": {
+    "P2": 3,
+    "P1": 3,
+    "P3": 2,
+    "P4": 2
+   },
+   "over3": 0,
+   "sorted": [
+    2,
+    2,
+    3,
+    3
+   ],
+   "allHours4": true,
+   "assign": [
+    "Cum-A-P4",
+    "Cum-S-P2",
+    "Per-A-P3",
+    "Per-S-P2",
+    "Pzt-A-P1",
+    "Pzt-S-P2",
+    "Sal-A-P3",
+    "Sal-S-P1",
+    "Çar-A-P4",
+    "Çar-S-P1"
+   ]
+  },
+  "csvHeader": "gun,vardiya,calisan,baslangic,bitis,saat",
+  "pztSIndex": 0,
+  "impossibleText": "Küçük İşletme Vardiya Planlayıcı\nSentetik örnek\n\nBu plan bir çalışma hukuku uygunluk sistemi değildir; yalnız verilen sentetik kuralları çözer.\n\nGirdi: çalışanlar\nS = 09:00–13:00, A = 13:00–17:00 (her biri 4 saat). S vardiyasını yalnız açılış yetkisi olan alabilir; kişi günde en fazla 1 vardiya alır.\nÇalışan\tAçılış yetkisi\tHaftalık azami vardiya\tUygun olmadığı\nP1\tevet\t3\tPzt-S\nP2\tevet\t3\tSal-A\nP3\thayır\t3\tÇar-S\nP4\thayır\t3\tPer-A\nHaftalık çizelge ve talep\n\nHer vardiyanın talebi 0–3 arası bir tam sayıdır; talep kadar farklı uygun çalışan atanır.\n\nPlanı oluştur\nTalebi varsayılana döndür\nCSV indir\nUygun plan yok: bu talepler kurallarla (açılış yetkisi, uygunluk, günde 1 vardiya, haftalık azami) karşılanamıyor. Çizelgede plan gösterilmiyor.\nPzt\nS vardiyası\n09:00–13:00\nTalep\n—\nA vardiyası\n13:00–17:00\nTalep\n—\nSal\nS vardiyası\n09:00–13:00\nTalep\n—\nA vardiyası\n13:00–17:00\nTalep\n—\nÇar\nS vardiyası\n09:00–13:00\nTalep\n—\nA vardiyası\n13:00–17:00\nTalep\n—\nPer\nS vardiyası\n09:00–13:00\nTalep\n—\nA vardiyası\n13:00–17:00\nTalep\n—\nCum\nS vardiyası\n09:00–13:00\nTalep\n—\nA vardiyası\n13:00–17:00\nTalep\n—\nÖzet\nÇalışan başına\nÇalışan\tVardiya\tSaat\tAzami\nP1\t—\t—\t3\nP2\t—\t—\t3\nP3\t—\t—\t3\nP4\t—\t—\t3\nTalep karşılama\nGün\tVardiya\tTalep\tAtanan\tDurum\nPzt\tS\t3\t—\tUygun plan yok\nPzt\tA\t1\t—\tUygun plan yok\nSal\tS\t1\t—\tUygun plan yok\nSal\tA\t1\t—\tUygun plan yok\nÇar\tS\t1\t—\tUygun plan yok\nÇar\tA\t1\t—\tUygun plan yok\nPer\tS\t1\t—\tUygun plan yok\nPer\tA\t1\t—\tUygun plan yok\nCum\tS\t1\t—\tUygun plan yok\nCum\tA\t1\t—\tUygun plan yok\nSentetik örnek · Tüm veriler yereldir; ağ isteği yapılmaz.",
+  "impossibleWarn": true,
+  "csvImpossibleRaw": "HATA Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"button\", name=re.compile(r\"csv\", re.IGNORECASE)).first\n    - locator resolved to <button disabled id=\"btn-csv\" type=\"button\" class=\"secondary\">CSV indir</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    58 × waiting for element to be visible, enabled and stable\n       - element is not enabled\n     - retrying click action\n       - waiting 500ms\n",
+  "impossibleCsvRows": null,
+  "resetClick": true,
+  "afterResetVal": "1",
+  "reset": {
+   "rows": 10,
+   "coverAll1": true,
+   "hours": 40.0,
+   "unavail": 0,
+   "badOpener": 0,
+   "double": 0,
+   "counts": {
+    "P2": 3,
+    "P1": 3,
+    "P3": 2,
+    "P4": 2
+   },
+   "over3": 0,
+   "sorted": [
+    2,
+    2,
+    3,
+    3
+   ],
+   "allHours4": true,
+   "assign": [
+    "Cum-A-P4",
+    "Cum-S-P2",
+    "Per-A-P3",
+    "Per-S-P2",
+    "Pzt-A-P1",
+    "Pzt-S-P2",
+    "Sal-A-P3",
+    "Sal-S-P1",
+    "Çar-A-P4",
+    "Çar-S-P1"
+   ]
+  },
+  "mobile": {
+   "sw": 390,
+   "cw": 390,
+   "bodySw": 390,
+   "buttons": [
+    {
+     "t": "Planı oluştur",
+     "w": 118,
+     "h": 40,
+     "x": 31,
+     "right": 149
+    },
+    {
+     "t": "Talebi varsayılana döndür",
+     "w": 202,
+     "h": 40,
+     "x": 157,
+     "right": 359
+    },
+    {
+     "t": "CSV indir",
+     "w": 328,
+     "h": 40,
+     "x": 31,
+     "right": 359
+    }
+   ]
+  },
+  "keyboardRows": 10
+ }
+}

@@ -1,0 +1,14 @@
+Türkçe arayüzlü bir küçük işletme vardiya planlayıcısı oluştur. Yalnız bir index.html dosyası teslim et; CSS ve JavaScript içinde olsun. Dosya file:// ile çevrimdışı açılsın; CDN, dış font, kütüphane, ağ isteği veya sunucu kullanma. Açıklama yerine çalışan dosyayı üret.
+
+Girdi verilerinin tamamı sentetik. Günler Pzt, Sal, Çar, Per, Cum. Her gün iki vardiya var: S=09:00–13:00, A=13:00–17:00; her biri 4 saat. Başlangıç talebi her vardiya için tam 1 çalışan.
+calisan,acilis_yetkisi,haftalik_azami_vardiya,uygun_olmadigi
+P1,evet,3,Pzt-S
+P2,evet,3,Sal-A
+P3,hayir,3,Çar-S
+P4,hayir,3,Per-A
+
+Kesin kurallar: Bir çalışan aynı gün en fazla 1 vardiya alır. Haftalık üst sınır aşılmaz. Uygun olunmayan vardiyaya atama yapılmaz. S vardiyasını yalnız açılış yetkisi evet olan çalışan alabilir. Başlangıç örneğinde toplam vardiya sayıları arasındaki fark en çok 1 olsun. Bu plan bir çalışma hukuku uygunluk sistemi değildir; yalnız verilen sentetik kuralları çözer.
+
+İlk açılışta girdi tablosu ve boş haftalık çizelge görünsün. Planı oluştur düğmesi geçerli planı renkli hücrelere yerleştirsin; çalışan başına vardiya/saat ve talep-karşılama durumu görünsün. Talep alanları düzenlenebilsin. Bir vardiyanın talebi 0, 1, 2 veya 3 olabilir; her talep kadar farklı uygun çalışan gerekir. Uygun plan yoksa bunu açıkça yaz; eski planı yeni talebi karşılıyormuş gibi gösterme. Talebi varsayılanlara döndüren düğme olsun.
+
+CSV indir düğmesi gün,vardiya,calisan,baslangic,bitis,saat sütunlarını versin. Masaüstünde ve 390 piksel genişlikte okunabilsin. Etiketli alanlar ve klavyeyle çalışan düğmeler kullan. Sayfada Sentetik örnek ibaresi bulunsun. Gereken çıktı index.html; harici paket kurma.

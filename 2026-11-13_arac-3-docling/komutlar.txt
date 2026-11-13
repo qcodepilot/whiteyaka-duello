@@ -1,0 +1,2 @@
+pip install docling openpyxl
+python pdf2excel.py odemeler-dengesi.pdf 2

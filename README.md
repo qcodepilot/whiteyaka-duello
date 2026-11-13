@@ -9,7 +9,7 @@ istem, modeller koşulmadan önce yazılan ölçütler, iki modelin çıktısı 
 | 2 | 10 Kasım 2026 | Tek istemle kargo toplama mini oyunu (GPT-6.1 Sol – Claude Opus 5.5) | Berabere (100 – 100) | [2026-11-10_kargo-oyunu](2026-11-10_kargo-oyunu/) |
 | 3 | 12 Kasım 2026 | Tek istemle küçük işletme vardiya planlayıcı (GPT-6.1 Sol – Claude Opus 5.5) | Berabere (100 – 100) | [2026-11-12_vardiya-planlayici](2026-11-12_vardiya-planlayici/) |
 
-Ayrıca "ARAÇ" bölümlerinin ham kayıtları: [ARAÇ #2 · yt-dlp (11 Kasım 2026)](2026-11-11_arac-2-yt-dlp/).
+Ayrıca "ARAÇ" bölümlerinin ham kayıtları: [ARAÇ #2 · yt-dlp (11 Kasım 2026)](2026-11-11_arac-2-yt-dlp/), [ARAÇ #3 · Docling (13 Kasım 2026)](2026-11-13_arac-3-docling/).
 
 ## Bir klasörde neler var
 
